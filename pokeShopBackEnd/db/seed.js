@@ -43,7 +43,7 @@ async function createTables() {
                 name VARCHAR(255) UNIQUE NOT NULL,
                 prodDes VARCHAR(255) NOT NULL,
                 dollarAmt FLOAT(8, 2) DEFAULT 0,
-                stockAmt INTEGER DEFAULT 0
+                stockCount INTEGER DEFAULT 0
             )
         `)
 
