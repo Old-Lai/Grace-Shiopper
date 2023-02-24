@@ -44,7 +44,11 @@ apiRouter.use(async (req, res, next) => {
 const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter);
 
+const productsRouter = require('./products');
+apiRouter.use('/products', productsRouter);
 
+const cartRouter = require('./shoppingCart');
+apiRouter.use('/cart', cartRouter)
 apiRouter.use((error, req, res, next) => {
     res.send({
       name: error.name,
