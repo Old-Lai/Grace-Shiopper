@@ -57,6 +57,7 @@ async function getUserByUsername(username) {
       throw error;
     }
 }
+
 //export
 module.exports = {
     client,
