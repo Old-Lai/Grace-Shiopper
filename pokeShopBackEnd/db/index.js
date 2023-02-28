@@ -57,12 +57,6 @@ async function getUserByUsername(username) {
       throw error;
     }
 }
-async function connect () {
-    await client.connect();
-    const testOne = await createUser({username:"testName", password:"blahhh", email:"123@gmail.com", isAdmin: true});
-    console.log(testOne)
-}
-connect();
 
 //export
 module.exports = {
