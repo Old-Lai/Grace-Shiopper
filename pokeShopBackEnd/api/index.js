@@ -6,7 +6,6 @@ const { getUserById } = require('../db');
 require('dotenv').config()
 const { JWT_SECRET } = process.env;
 apiRouter.use(async (req, res, next) => {
-    console.log(req.body)
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
     
@@ -17,7 +16,6 @@ apiRouter.use(async (req, res, next) => {
   
       try {
         const { id } = jwt.verify(token, JWT_SECRET);
-  
         if (id) {
           req.user = await getUserById(id);
           next();
