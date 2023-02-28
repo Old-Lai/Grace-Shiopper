@@ -17,6 +17,7 @@ async function createProduct({productName, productDes, dollarAmt, stockCount}){
         } catch(e) {
             throw e
         }
+}
 
 async function createUser({ username, password, email, isAdmin}) {
     try {
