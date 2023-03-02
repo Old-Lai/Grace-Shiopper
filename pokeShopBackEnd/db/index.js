@@ -18,9 +18,6 @@ async function createUser({ username, password, email, isAdmin}) {
     throw error;
     }
 }
-async function createProduct () {
-
-}
 
 async function updateUser(id, fields = {}) {
     const setString = Object.keys(fields).map(
@@ -44,6 +41,7 @@ async function updateUser(id, fields = {}) {
     throw error;
     }
 }
+
 async function getUserByUsername(username) {
     try {
       const { rows: [user] } = await client.query(`
@@ -57,18 +55,41 @@ async function getUserByUsername(username) {
       throw error;
     }
 }
-async function connect () {
-    await client.connect();
-    const testOne = await createUser({username:"testName", password:"blahhh", email:"123@gmail.com", isAdmin: true});
-    console.log(testOne)
+
+async function getAllUsers() {
+    try {
+        const { rows } = await client.query(`
+            SELECT id, username, email, isAdmin
+            FROM users;
+        `);
+
+        return rows;
+    } catch (error) {
+        throw error;
+    }
 }
-connect();
+
+async function getUserByEmail(email) {
+    try {
+      const { rows: [user] } = await client.query(`
+        SELECT *
+        FROM users
+        WHERE email=$1;
+      `, [email]);
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
 //export
 module.exports = {
     client,
     createUser,
     updateUser,
-    getUserByUsername
+    getUserByUsername,
+    getAllUsers,
+    getUserByEmail
 }
 
