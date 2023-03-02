@@ -4,19 +4,57 @@ const { Client } = require('pg');
 const client = new Client()
 
 //db code stuff below
-async function createProduct({productName, productDes, dollarAmt, stockCount}){
+async function createProduct({prodName, prodDes, dollarAmt, stockCount}){
         try{
             const {rows:[product]} = await client.query(`
                 INSERT INTO products(name, prodDes, dollarAmt, stockCount)
                 VALUES($1, $2, $3, $4)
                 ON CONFLICT DO NOTHING
                 RETURNING *;
-            `,[productName, productDes, dollarAmt, stockCount])
+            `,[prodName, prodDes, dollarAmt, stockCount])
 
             return product
         } catch(e) {
             throw e
         }
+}
+
+async function updateProduct(productId, fields = {}){
+    const {prodName, prodDes, dollarAmt, stockCount} = fields;
+
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${key}"=$${index + 1}`
+    ).join(', ')
+
+    try{
+        if(!setString.length){
+            return {}
+        }
+
+        const {rows:[product]} = await client.query(`
+            UPDAATE products
+            SET ${ setString }
+            WHERE id=${productId}
+            RETURNING *;
+        `, Object.values(fields))
+
+        return product
+    } catch(e) {
+        throw e
+    }
+}
+
+async function getAllProducts(){
+    try{
+        const {rows} = client.query(`
+            SELECT *
+            FROM products;
+        `)
+
+        return rows
+    } catch(e) {
+        throw e
+    }
 }
 
 async function createUser({ username, password, email, isAdmin}) {
@@ -32,9 +70,6 @@ async function createUser({ username, password, email, isAdmin}) {
     } catch (error) {
     throw error;
     }
-}
-async function createProduct () {
-
 }
 
 async function updateUser(id, fields = {}) {
