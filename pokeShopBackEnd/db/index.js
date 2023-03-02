@@ -110,6 +110,7 @@ async function getUserByUsername(username) {
 }
 
 
+
 async function getAllUsers() {
     try {
         const { rows } = await client.query(`
@@ -135,6 +136,7 @@ async function getUserByEmail(email) {
       throw error;
     }
   }
+
 
 
 //export
