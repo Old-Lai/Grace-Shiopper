@@ -2,10 +2,12 @@ const express = require("express");
 const usersRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const { createUser, updateUser, getUserByUsername } = require("../db");
+
 usersRouter.use((req, res, next) => {
   console.log("A request is being made to /users");
   next(); // THIS IS DIFFERENT
 });
+
 usersRouter.post("/register", async (req, res, next) => {
   const { username, password, email } = req.body;
 
