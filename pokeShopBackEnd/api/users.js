@@ -11,7 +11,7 @@ usersRouter.use((req, res, next) => {
 
 usersRouter.post("/register", async (req, res, next) => {
   const { username, password, email } = req.body;
-
+  console.log(req.body)
   try {
     if (!username || !password || !email) {
       next({
