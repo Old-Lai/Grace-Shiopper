@@ -2,7 +2,7 @@ const express = require("express");
 const usersRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
-const { createUser, updateUser, getUserByUsername } = require("../db");
+const { createUser, updateUser, getUserByUsername, getUserByEmail} = require("../db");
 
 usersRouter.use((req, res, next) => {
   console.log("A request is being made to /users");
@@ -11,7 +11,7 @@ usersRouter.use((req, res, next) => {
 
 usersRouter.post("/register", async (req, res, next) => {
   const { username, password, email } = req.body;
-  console.log(req.body)
+
   try {
     if (!username || !password || !email) {
       next({
@@ -20,11 +20,16 @@ usersRouter.post("/register", async (req, res, next) => {
       });
     } else {
       const _user = await getUserByUsername(username);
-
+      const _email = await getUserByEmail(email)
       if (_user) {
         next({
           name: "UserExistsError",
           message: "A user by that username already exists",
+        });
+      } else if (_email) {
+        next({
+          name: "UserExistsError",
+          message: "A user by that email already exists",
         });
       } else {
         const saltRounds = 10;
