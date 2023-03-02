@@ -1,5 +1,6 @@
 const {
-    client
+    client,
+    createUsers
 } = require("./index")
 
 async function dropTables() {
@@ -7,15 +8,15 @@ async function dropTables() {
         console.log("Starting to drop tables...")
 
         await client.query(`
-            DROP TABLE IF EXISTS products
-            DROP TABLE IF EXISTS shopping_carts
-            DROP TABLE IF EXISTS users
+            DROP TABLE IF EXISTS products;
+            DROP TABLE IF EXISTS shopping_carts;
+            DROP TABLE IF EXISTS users;
         `)
 
         console.log("Finished dropping tables!")
     } catch(e) {
         console.error("Error dropping tables!!!")
-        throw error;
+        throw e;
     }
 }
 
@@ -42,14 +43,27 @@ async function createTables() {
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255) UNIQUE NOT NULL,
                 prodDes VARCHAR(255) NOT NULL,
-                dollarAmt FLOAT(8, 2) DEFAULT 0,
+                dollarAmt FLOAT NOT NULL,
                 stockCount INTEGER DEFAULT 0
-            )
+            );
         `)
 
         console.log("Finished building tables!")
     } catch(e) {
         console.error("Error building tables!!!")
-        throw error
+        throw e
+    }
+}
+
+async function insertInitialData(){
+    try{
+        console.log("Starting to insert initial datas...")
+    
+        await createUser
+
+        console.log("Finished inserting initial datas!")
+    } catch(e) {
+        console.error("Error inserting initial data!!!")
+        throw e
     }
 }
