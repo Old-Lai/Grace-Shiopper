@@ -40,7 +40,7 @@ async function createTables() {
       CREATE TABLE products(
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) UNIQUE NOT NULL,
-        prodDes VARCHAR(255) NOT NULL,
+        productDes VARCHAR(255) NOT NULL,
         dollarAmt FLOAT NOT NULL,
         stockCount INTEGER DEFAULT 0
       );
