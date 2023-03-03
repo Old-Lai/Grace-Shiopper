@@ -1,10 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const productsRouter = express.Router();
 
-router.use((req, res, next) => {
-    console.log("A request is being made to /products");
-    res.send({})
-    next(); // THIS IS DIFFERENT
-  });
+productsRouter.use((req, res, next) => {
+  console.log("A request is being made to /products");
+  next(); // Move this line before res.send()
+  res.send({});
+});
 
-module.exports = router;
+module.exports = productsRouter;
