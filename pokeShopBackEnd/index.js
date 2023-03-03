@@ -8,7 +8,7 @@ const morgan = require('morgan');
 server.use(morgan('dev'));  
 server.use(express.json())
 
-server.use('/api', apiRouter);
+server.use('/api/', apiRouter);
 
 client.connect((err) => {
     //to show if client successfully connected

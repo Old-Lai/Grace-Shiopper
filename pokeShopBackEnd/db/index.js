@@ -32,7 +32,7 @@ async function updateProduct(productId, fields = {}){
         }
 
         const {rows:[product]} = await client.query(`
-            UPDAATE products
+            UPDATE products
             SET ${ setString }
             WHERE id=${productId}
             RETURNING *;
@@ -46,7 +46,7 @@ async function updateProduct(productId, fields = {}){
 
 async function getAllProducts(){
     try{
-        const {rows} = client.query(`
+        const {rows} = await client.query(`
             SELECT *
             FROM products;
         `)

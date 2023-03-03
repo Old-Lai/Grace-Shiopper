@@ -1,10 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const cartRouter = express.Router();
 
-router.use((req, res, next) => {
+cartRouter.use((req, res, next) => {
     console.log("A request is being made to /cart");
-    res.send({})
     next(); // THIS IS DIFFERENT
+    res.send({})
+    
   });
 
-module.exports = router;
+module.exports = cartRouter;
