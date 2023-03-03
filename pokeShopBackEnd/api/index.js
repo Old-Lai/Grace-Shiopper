@@ -47,8 +47,9 @@ const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
 
 const cartRouter = require('./shoppingCart');
+const { getUserByUsername } = require('../db');
 apiRouter.use('/cart', cartRouter);
-console.log(usersRouter, productsRouter, cartRouter)
+
 apiRouter.use((error, req, res, next) => {
   res.send({
     name: error.name,
@@ -58,8 +59,11 @@ apiRouter.use((error, req, res, next) => {
 
 (async () => {
   try {
-    await seed(); // Assuming seed function is imported
+    const _admin = getUserByUsername("admin")
+    if(!_admin){
+      await seed(); // Assuming seed function is imported
     console.log("Database seeding complete!");
+    }
   } catch (e) {
     console.error('Error seeding database!!!');
     console.error(e);
