@@ -6,8 +6,7 @@ const productsRouter = express.Router();
 //get products
 productsRouter.use((req, res, next) => {
   console.log("A request is being made to /products");
-  next(); // Move this line before res.send()
-  res.send({});
+  next();
 });
 
 productsRouter.get('/', async (req, res, next) => {
@@ -27,24 +26,23 @@ productsRouter.post('/', async (req, res, next) => {
         name:"Unauthorized",
         message:"you need to be logged in"
       })
-    } else if(!req.user.isAdmin){
+    } else if(!req.user.isadmin){
       next({
         name:"Unauthorized",
         message:"you need to be an admin to do this action"
       })
     }
 
-    const { productName, productDescription, dolalrAmt, stockCount } = res.body
-    
+    const { productName, productDescription, dollarAmt, stockCount } = req.body
     //if they did not provide the essential data
-    if(!productName || !productDescription || !dolalrAmt){
+    if(!productName || !productDescription || !dollarAmt){
       next({
         name:"Missting Params",
-        message:`Missing essential params`
+        message:`Missing essential params${!productName ? ", 'productName'" : ''}${!productDescription ? ", 'productDescription'" : ''}${!dollarAmt ? ", 'dolalrAmt'" : ''}`
       })
     }
 
-    const product = await createProduct({prodName:productName, prodDes:productDescription, dolalrAmt, stockCount})
+    const product = await createProduct({prodName:productName, prodDes:productDescription, dollarAmt, stockCount})
 
     res.send({product}) 
   } catch({name, message}) {
