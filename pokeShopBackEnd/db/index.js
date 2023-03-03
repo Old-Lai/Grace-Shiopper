@@ -135,9 +135,7 @@ async function getUserByEmail(email) {
     } catch (error) {
       throw error;
     }
-  }
-
-
+}
 
 //export
 module.exports = {
@@ -146,6 +144,9 @@ module.exports = {
     updateUser,
     getUserByUsername,
     getAllUsers,
-    getUserByEmail
+    getUserByEmail,
+    getAllProducts,
+    createProduct,
+    updateProduct
 }
 
