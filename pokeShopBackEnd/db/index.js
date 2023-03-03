@@ -57,6 +57,20 @@ async function getAllProducts(){
     }
 }
 
+async function getProductById(productId){
+    try{
+        const {rows:[product]} = await client.query(`
+            SELECT *
+            FROM products
+            WHERE id=$1;
+        `,[productId])
+
+        return product
+    } catch(e) {
+        throw e
+    }
+}
+
 async function createUser({ username, password, email, isAdmin}) {
     try {
         const { rows: [ user ] } = await client.query(`
@@ -147,6 +161,7 @@ module.exports = {
     getUserByEmail,
     getAllProducts,
     createProduct,
-    updateProduct
+    updateProduct,
+    getProductById
 }
 
