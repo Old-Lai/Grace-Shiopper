@@ -5,7 +5,6 @@ const { getUserById } = require('../db');
 require('dotenv').config()
 const { JWT_SECRET } = process.env;
 const seed = require('../db/seed')
-
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
