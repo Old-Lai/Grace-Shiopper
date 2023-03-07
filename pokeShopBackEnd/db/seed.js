@@ -28,7 +28,7 @@ async function createTables() {
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
-        isAdmin BOOLEAN DEFAULT false
+        "isAdmin" BOOLEAN DEFAULT false
       );
 
       CREATE TABLE shopping_carts(
@@ -41,9 +41,10 @@ async function createTables() {
       CREATE TABLE products(
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) UNIQUE NOT NULL,
-        prodDes VARCHAR(255) NOT NULL,
-        dollarAmt FLOAT NOT NULL,
-        stockCount INTEGER DEFAULT 0
+        "prodDes" VARCHAR(255) NOT NULL,
+        "dollarAmt" FLOAT NOT NULL,
+        "stockCount" INTEGER DEFAULT 0,
+        "isListed" BOOLEAN DEFAULT false
       );
     `);
 

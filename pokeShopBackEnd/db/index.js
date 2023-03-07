@@ -7,7 +7,7 @@ const client = new Client()
 async function createProduct({prodName, prodDes, dollarAmt, stockCount}){
         try{
             const {rows:[product]} = await client.query(`
-                INSERT INTO products(name, prodDes, dollarAmt, stockCount)
+                INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount")
                 VALUES($1, $2, $3, $4)
                 ON CONFLICT DO NOTHING
                 RETURNING *;
@@ -74,7 +74,7 @@ async function getProductById(productId){
 async function createUser({ username, password, email, isAdmin}) {
     try {
         const { rows: [ user ] } = await client.query(`
-        INSERT INTO users(username, password, email, isAdmin) 
+        INSERT INTO users(username, password, email, "isAdmin") 
         VALUES($1, $2, $3, $4) 
         ON CONFLICT (username) DO NOTHING 
         RETURNING *;
@@ -145,6 +145,7 @@ async function getUserByEmail(email) {
         FROM users
         WHERE email=$1;
       `, [email]);
+
       return user;
     } catch (error) {
       throw error;

@@ -58,4 +58,38 @@ usersRouter.post("/register", async (req, res, next) => {
     next({ name, message });
   }
 });
+
+usersRouter.post("/login", async (req, res, next) => {
+  const { username, password } = req.body;
+  
+  try {
+    const user = await getUserByUsername(username);
+
+    if (!user) {
+      next({
+        name: "UserNotFoundError",
+        message: "User not found",
+      });
+    } else {
+      const passwordMatches = await bcrypt.compare(password, user.password);
+
+      if (passwordMatches) {
+        const token = jwt.sign(
+          { id: user.id, username: user.username },
+          process.env.JWT_SECRET
+        );
+
+        res.send({ message: "You're logged in!", token });
+      } else {
+        next({
+          name: "IncorrectCredentialsError",
+          message: "Username or password is incorrect",
+        });
+      }
+    }
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
+
 module.exports = usersRouter;

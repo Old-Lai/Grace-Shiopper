@@ -28,7 +28,7 @@ productsRouter.post('/', async (req, res, next) => {
         name:"Unauthorized",
         message:"you need to be logged in"
       })
-    } else if(!req.user.isadmin){
+    } else if(!req.user.isAdmin){
       next({
         name:"Unauthorized",
         message:"you need to be an admin to do this action"
@@ -59,7 +59,7 @@ productsRouter.post('/:productId', async (req,res,next) => {
         name:"Unauthorized",
         message:"you need to be logged in"
       })
-    } else if(!req.user.isadmin){
+    } else if(!req.user.isAdmin){
       next({
         name:"Unauthorized",
         message:"you need to be an admin to do this action"
@@ -77,7 +77,7 @@ productsRouter.post('/:productId', async (req,res,next) => {
     }
     const { productName, productDescription, dollarAmt, stockCount } = req.body
     //if they did not provide the essential data
-    const product = await updateProduct(productId, {name:productName, proddes:productDescription, dollaramt:dollarAmt, stockcount:stockCount})
+    const product = await updateProduct(productId, {name:productName, prodDes:productDescription, dollarAmt:dollarAmt, stockCount:stockCount})
     
     res.send({
       product
