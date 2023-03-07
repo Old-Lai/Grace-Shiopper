@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
-const { client } = require("./index.js")
+const { client, createUser } = require("./index.js")
+
 async function dropTables() {
   try {
     console.log('Starting to drop tables...');
@@ -58,11 +59,7 @@ async function insertInitialData() {
     console.log('Starting to insert initial data...');
 
     const hashedPassword = await bcrypt.hash('admin123', 10);
-
-    await client.query(`
-      INSERT INTO users (username, password, email, isAdmin)
-      VALUES ('admin', '${hashedPassword}', 'admin@example.com', true);
-    `);
+    createUser({ username:"admin", password:hashedPassword, email:"admin@example.com", isAdmin:true})
     
     console.log('Finished inserting initial data!');
   } catch (e) {

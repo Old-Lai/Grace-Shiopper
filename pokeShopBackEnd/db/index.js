@@ -154,14 +154,14 @@ async function getUserByEmail(email) {
 //export
 module.exports = {
     client,
+    createProduct,
+    updateProduct,
+    getAllProducts,
+    getProductById,
     createUser,
     updateUser,
     getUserByUsername,
     getAllUsers,
-    getUserByEmail,
-    getAllProducts,
-    createProduct,
-    updateProduct,
-    getProductById
+    getUserByEmail
 }
 
