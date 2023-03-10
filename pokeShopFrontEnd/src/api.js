@@ -17,4 +17,8 @@ export async function registerUser({username, password}) {
     } catch(err){
       console.error(err)
     }
-  }
+}
+
+export async function login(){
+  
+}

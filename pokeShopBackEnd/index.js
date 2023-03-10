@@ -4,9 +4,12 @@ const express = require('express');
 const server = express();
 const apiRouter = require('./api');
 const morgan = require('morgan');
+const cors = require('cors')
 
 server.use(morgan('dev'));  
 server.use(express.json())
+
+server.use(cors())
 
 server.use('/api/', apiRouter);
 
