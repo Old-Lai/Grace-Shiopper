@@ -1,11 +1,9 @@
-
-import { useEffect } from 'react'
 import {Link} from 'react-router-dom'
+
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Button from '@mui/material/Button';
 
  const NavBar = ({token, setToken}) => {
-    const navigate = useNavigate()
     function logOut(){ 
         localStorage.removeItem('username')
         localStorage.removeItem('saved_token')

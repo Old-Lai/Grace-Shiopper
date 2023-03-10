@@ -6,12 +6,9 @@ export async function registerUser({username, password, email}) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      user: {
         username: username,
         password: password,
         email: email
-
-      }
     })
   }) 
   let result = await response.json()

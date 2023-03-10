@@ -8,16 +8,11 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
+
     const [token, setToken] = useOutletContext();
     //console.log(setToken);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    useEffect(() => {
-       if (token) {
-           navigate('/products')
-       }
-    }, [token, navigate])
-    
    async function submitRegistration(e) {
        e.preventDefault();
        if (!username) {
@@ -29,18 +24,18 @@ const Register = () => {
        } else {
            setErrorMessage("");
            const user = {
-               user: {
-                   username,
-                   password,
-                   email
-               }
+               username,
+               password,
+               email
            }
+           console.log(user.username)
            const response = await registerUser(user);
+           console.log(response)
            if (response.error) {
                setErrorMessage(response.error.message);
            } else {
-               localStorage.setItem('token', response.data.token);
-               setToken(response.data.token);
+               localStorage.setItem('token', response.token);
+               setToken(response.token);
            }
        }
    }
