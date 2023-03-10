@@ -12,7 +12,7 @@ const NavBar = ({token, setToken}) => {
 return (
     <div className='nav-body'>
         <div className="site-title">
-        <h1>Strangers Things</h1>
+        <h1>POKEFEUD</h1>
     </div>
     <nav className="nav-links">
         <ul>
@@ -28,7 +28,7 @@ return (
                 }
             </li>
             <li>
-                <Link to='Posts'>Posts</Link>
+                <Link to='Products'>Products</Link>
             </li>
             <li>
                 {
