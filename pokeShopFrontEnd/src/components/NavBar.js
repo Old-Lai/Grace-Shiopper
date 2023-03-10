@@ -1,50 +1,26 @@
-import { React, useEffect } from 'react'
+
+import { useEffect } from 'react'
 import {Link} from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-const NavBar = ({token, setToken}) => {
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Button from '@mui/material/Button';
+
+ const NavBar = ({token, setToken}) => {
     const navigate = useNavigate()
     function logOut(){ 
         localStorage.removeItem('username')
         localStorage.removeItem('saved_token')
-        navigate('/login')
         setToken('')
     }
-return (
-    <div className='nav-body'>
-        <div className="site-title">
-        <h1>POKEFEUD</h1>
-    </div>
-    <nav className="nav-links">
-        <ul>
-            <li>
-                {
-                    <Link to='/'>Home</Link> 
-                }
-
-            </li>           
-            <li>
-                {
-                (!token) ? <Link to='Register'>Register</Link> : null 
-                }
-            </li>
-            <li>
-                <Link to='Products'>Products</Link>
-            </li>
-            <li>
-                {
-                (token) ? <Link to='Profile'>Profile</Link> : null 
-                }
-            </li>
-            <li>
-                {
-                (!token) ? <Link to='Login'>Login</Link> : <button className='logOut' onClick={logOut}>Log Out</button>   
-                }
-            </li>
-        </ul>
-    </nav>
-    </div>
-
-)
+  return (
+      <nav className="nav-links">
+          <Breadcrumbs >
+              <Link to='/'>Home</Link>
+              {!token && <Link to='Register'>Register</Link>}
+              {!token && <Link to='Login'>Login</Link>}
+              {token && <Button onClick={()=>logOut()}>Logout</Button>}
+          </Breadcrumbs>
+      </nav>
+  )
 
 }
 
