@@ -7,6 +7,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState('');
     const [token, setToken] = useOutletContext();
     //console.log(setToken);
     const [errorMessage, setErrorMessage] = useState('');
@@ -30,7 +31,8 @@ const Register = () => {
            const user = {
                user: {
                    username,
-                   password
+                   password,
+                   email
                }
            }
            const response = await registerUser(user);
@@ -60,6 +62,11 @@ const Register = () => {
            <input type="password" 
            value={confirmPassword} 
            onChange={(e) => setConfirmPassword(e.target.value)}
+           />
+           <label >Email: </label>
+           <input type="text" 
+           value={email} 
+           onChange={(e) => setEmail(e.target.value)}
            />
            <button type="submit" class="submitButton">Register</button>
            <p>{errorMessage}</p>
