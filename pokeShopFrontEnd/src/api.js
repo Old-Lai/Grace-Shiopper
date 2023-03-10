@@ -1,5 +1,4 @@
 export async function registerUser({username, password, email}) {
-
     try {
       let response = await fetch('https://pokefeud-backend.onrender.com/api/users/register', {
     method: "POST",
