@@ -21,8 +21,7 @@ return (
                     <Link to='/'>Home</Link> 
                 }
 
-            </li>
-           
+            </li>           
             <li>
                 {
                 (!token) ? <Link to='Register'>Register</Link> : null 
@@ -44,11 +43,6 @@ return (
         </ul>
     </nav>
     </div>
-    
-
-
-
-
 
 )
 

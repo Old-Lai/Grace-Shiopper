@@ -40,7 +40,7 @@ usersRouter.post("/register", async (req, res, next) => {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        const user = await createUser({
+        const user = await createUser({ 
           username,
           password: hashedPassword,
           email,
