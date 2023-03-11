@@ -13,7 +13,7 @@ const Register = () => {
     //console.log(setToken);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-   async function submitRegistration(e) {
+   async function submitRegistration(e) {   
        e.preventDefault();
        if (!username) {
            setErrorMessage("Username required.");
@@ -28,7 +28,7 @@ const Register = () => {
                password,
                email
            }
-           console.log(user.username)
+           
            const response = await registerUser(user);
            console.log(response)
            if (response.error) {

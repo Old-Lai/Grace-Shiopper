@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-// import { loginUser } from '../api';
+ import { loginUser } from '../api';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    // const [username, setUsername] = useState('');
-    // const [password, setPassword] = useState('');
-    // const [errorMessage, setErrorMessage] = useState('');
-    // const [token, setToken] = useOutletContext();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [token, setToken] = useOutletContext();
     
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     
     // useEffect(() => {
     //     if (token) {
@@ -16,26 +16,28 @@ const Login = () => {
     //     }
     //  }, [token, navigate])
 
-    // async function submitRegistration(e) {
-    //     e.preventDefault();
-    //     const user = {
-    //         user: {
-    //             username,
-    //             password
-    //         }
-    //     }
-    //     // const response = await loginUser(user);
-    //     if (response.error) {
-    //         setErrorMessage('Username or password are incorrect. Try again. ');
-    //     } else {
-    //         localStorage.setItem('token', response.data.token);
-    //         setToken(response.data.token);
-    //     }
-    // }
+    async function submitRegistration(e) {
+        e.preventDefault();
+        const user = {
+         
+                username,
+                password
+            
+        }
+        
+         const response = await loginUser(user);
+         console.log(response)
+        if (response.error) {
+            setErrorMessage('Username or password are incorrect. Try again. ');
+        } else {
+            localStorage.setItem('token', response.token);
+            setToken(response.token);
+        }
+    }
     
     return (
     <section class="registerCss">
-        {/* <h1 class="registerTitle">Login</h1>
+         <h1 class="registerTitle">Login</h1>
         <form onSubmit={submitRegistration}>
             <label >Username: </label>
             <input type="text" 
@@ -49,7 +51,7 @@ const Login = () => {
             />
             {errorMessage ? <p>{ errorMessage }</p> : null}
             <button type="submit" class="submitButton">Login</button>
-        </form> */}
+        </form>
     </section>
     )     
 };
