@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { loginUser } from '../utils/API';
+import { loginUser } from '../api';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 
 const Login = () => {
