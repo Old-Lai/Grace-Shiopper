@@ -9,31 +9,31 @@ usersRouter.post("/register", async (req, res, next) => {
 
   try {
     if (!username) {
-      next({
-        name: "MissingParams",
+      res.send({
+        error: "MissingParams",
         message: "Username is missing",
       });
     } else if (!password) {
-      next({
-        name: "MissingParams",
+      res.send({
+        error: "MissingParams",
         message: "Password is missing",
       });
     } else if (!email) {
-      next({
-        name: "MissingParams",
+      res.send({
+        error: "MissingParams",
         message: "Email is missing",
       });
     } else {
       const _user = await getUserByUsername(username);
       const _email = await getUserByEmail(email)
       if (_user) {
-        next({
-          name: "UserExistsError",
+        res.send({
+          error: "UserExistsError",
           message: "A user by that username already exists",
         });
       } else if (_email) {
-        next({
-          name: "UserExistsError",
+        res.send({
+          error: "UserExistsError",
           message: "A user by that email already exists",
         });
       } else {
@@ -66,8 +66,8 @@ usersRouter.post("/login", async (req, res, next) => {
     const user = await getUserByUsername(username);
 
     if (!user) {
-      next({
-        name: "UserNotFoundError",
+      res.send({
+        error: "UserNotFoundError",
         message: "User not found",
       });
     } else {
@@ -82,14 +82,31 @@ usersRouter.post("/login", async (req, res, next) => {
         delete user.password
         res.send({ message: "You're logged in!", token, user });
       } else {
-        next({
-          name: "IncorrectCredentialsError",
-          message: "Username or password is incorrect",
+        res.send({
+          error: "IncorrectCredentialsError",
+          message: "Username or password is incorrect"
         });
       }
     }
   } catch ({ name, message }) {
     next({ name, message });
+  }
+});
+
+usersRouter.get("/me", async (req, res, next) => {
+  try {
+    console.log(req.user)
+    if(!req.user){
+      next({
+        error:"Unauthorized",
+        message:"you need to be logged in"
+      })
+    }
+
+    const user = await getUserByUsername(req.user.username)
+    res.send({user})
+  } catch ({ error, name, message }) {
+    next({ error, name, message });
   }
 });
 
