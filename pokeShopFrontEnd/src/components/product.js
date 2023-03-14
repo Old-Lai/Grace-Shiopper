@@ -1,7 +1,7 @@
 import { useNavigate} from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
-const ProductList = ({ product }) => {
+const ProductList = ({ product, user }) => {
     const {_id, image, prodName, prodDes, dollarAmt, stockCount} = product
     //const navigate = useNavigate();
     //const token = localStorage.getItem('token')
