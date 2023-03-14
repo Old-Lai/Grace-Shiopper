@@ -11,7 +11,7 @@ server.use(express.json())
 
 server.use(cors())
 
-server.use('/api/', apiRouter);
+server.use('/api/', apiRouter)
 
 client.connect((err) => {
     //to show if client successfully connected
@@ -21,6 +21,8 @@ client.connect((err) => {
         console.log('connected')
     }
 })
+
+
 
 server.listen(PORT, () => {
   console.log('The server is up on port', PORT)
