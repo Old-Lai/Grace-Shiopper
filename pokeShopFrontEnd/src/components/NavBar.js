@@ -14,6 +14,7 @@ return (
     <nav className="nav-links">
         <Breadcrumbs >
             <Link to='/'>Home</Link>
+            <Link to='Products'>Products</Link>
             {!token && <Link to='Register'>Register</Link>}
             {!token && <Link to='Login'>Login</Link>}
             {token && <Button onClick={()=>logOut()}>Logout</Button>}

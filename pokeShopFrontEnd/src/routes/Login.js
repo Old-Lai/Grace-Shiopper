@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
  import { loginUser } from '../api';
 import { useOutletContext, useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import  TextField from '@mui/material/TextField';
+import { Box } from '@mui/system';
+import Grid from '@mui/material/Grid'
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -16,42 +20,50 @@ const Login = () => {
     //     }
     //  }, [token, navigate])
 
-    async function submitRegistration(e) {
-        e.preventDefault();
+    async function submitLogin(e) {
         const user = {
-         
                 username,
                 password
-            
         }
         
          const response = await loginUser(user);
          console.log(response)
         if (response.error) {
-            setErrorMessage('Username or password are incorrect. Try again. ');
+            setErrorMessage(response.message);
         } else {
             localStorage.setItem('token', response.token);
             setToken(response.token);
+            navigate('/products')
         }
     }
     
     return (
-    <section class="registerCss">
-         <h1 class="registerTitle">Login</h1>
-        <form onSubmit={submitRegistration}>
-            <label >Username: </label>
-            <input type="text" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)}
+    <section className="registerCss">
+         <Grid sx={{display:'flex', justifyContent: 'center' }}>
+            
+            <Box sx={{display:'flex', width:'25ch',flexDirection:'column', alignItems:'center'}}>
+            <h1 className="Login">Login</h1>
+            <TextField
+                
+                label="Username"
+                variant="outlined"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                margin="normal"
+                required
             />
-            <label >Password: </label>
-            <input type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)}
+           <TextField
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                margin="normal"
+                required
             />
-            {errorMessage ? <p>{ errorMessage }</p> : null}
-            <button type="submit" class="submitButton">Login</button>
-        </form>
+           <Button onClick={() => {submitLogin()}}type="submit" variant="contained" color="primary" margin ="normal" >Login</Button>
+           <p>{errorMessage}</p>
+       </Box>
+       </Grid>
     </section>
     )     
 };

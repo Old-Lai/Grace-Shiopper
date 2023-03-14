@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import {registerUser} from '../api';
+import Button from '@mui/material/Button';
+import  TextField from '@mui/material/TextField';
+import { Box } from '@mui/system';
+import Grid from '@mui/material/Grid'
 
 
 const Register = () => {
@@ -12,8 +16,7 @@ const Register = () => {
     //console.log(setToken);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-   async function submitRegistration(e) {   
-       e.preventDefault();
+   async function submitRegistration() {   
        if (!username) {
            setErrorMessage("Username required.");
        } else if (password.length < 8){
@@ -31,40 +34,58 @@ const Register = () => {
            const response = await registerUser(user);
            console.log(response)
            if (response.error) {
-               setErrorMessage(response.error.message);
+               setErrorMessage(response.message);
            } else {
                localStorage.setItem('token', response.token);
                setToken(response.token);
+               navigate('/products')
            }
        }
    }
    return (
-   <section class="registerCss">
-       <h1 class="registerTitle">Register</h1>
-       <form onSubmit={submitRegistration}>
-           <label >Username: </label>
-           <input type="text" 
-           value={username} 
-           onChange={(e) => setUsername(e.target.value)}
-           />
-           <label >Password: </label>
-           <input type="password" 
-           value={password} 
-           onChange={(e) => setPassword(e.target.value)}
-           />
-           <label >Confirm Password: </label>
-           <input type="password" 
-           value={confirmPassword} 
-           onChange={(e) => setConfirmPassword(e.target.value)}
-           />
-           <label >Email: </label>
-           <input type="text" 
-           value={email} 
-           onChange={(e) => setEmail(e.target.value)}
-           />
-           <button type="submit" class="submitButton">Register</button>
+   <section className="registerCss">
+       
+       <Grid sx={{display:'flex', justifyContent: 'center' }}>
+            
+            <Box sx={{display:'flex', width:'25ch',flexDirection:'column', alignItems:'center'}}>
+            <h1 className="registerTitle">Register</h1>
+            <TextField
+                
+                label="Username"
+                variant="outlined"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                margin="normal"
+                required
+            />
+           <TextField
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                margin="normal"
+                required
+            />
+            <TextField
+                label="Confirm Password"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                margin="normal"
+                required
+            />
+            <TextField
+                label="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                margin="normal"
+                required
+            />
+           <Button onClick={() => {submitRegistration()}}type="submit" variant="contained" color="primary" margin ="normal" >Register</Button>
            <p>{errorMessage}</p>
-       </form>
+       </Box>
+       </Grid>
    </section>
    )     
 }

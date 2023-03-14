@@ -61,6 +61,7 @@ async function insertInitialData() {
 
     const hashedPassword = await bcrypt.hash('admin123', 10);
     createUser({ username:"admin", password:hashedPassword, email:"admin@example.com", isAdmin:true})
+    const POKEIMG_URL = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/`
     
     console.log('Finished inserting initial data!');
   } catch (e) {
