@@ -1,12 +1,3 @@
-/* import React from "react";
-
-
-const products = () => (
-    <h1>products page</h1>
-);
-
-export default products; */
-
 import { useState, useEffect } from "react";
 import { fetchAllProducts } from "../api";
 import ProductList from "../utils/AllProducts";

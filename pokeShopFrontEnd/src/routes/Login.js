@@ -10,32 +10,34 @@ const Login = () => {
     
     const navigate = useNavigate();
     
-    useEffect(() => {
-        if (token) {
-            navigate('/products')
-        }
-     }, [token, navigate])
+    // useEffect(() => {
+    //     if (token) {
+    //         navigate('/products')
+    //     }
+    //  }, [token, navigate])
 
     async function submitRegistration(e) {
         e.preventDefault();
         const user = {
-            user: {
+         
                 username,
                 password
-            }
+            
         }
-        const response = await loginUser(user);
+        
+         const response = await loginUser(user);
+         console.log(response)
         if (response.error) {
             setErrorMessage('Username or password are incorrect. Try again. ');
         } else {
-            localStorage.setItem('token', response.data.token);
-            setToken(response.data.token);
+            localStorage.setItem('token', response.token);
+            setToken(response.token);
         }
     }
     
     return (
     <section class="registerCss">
-        <h1 class="registerTitle">Login</h1>
+         <h1 class="registerTitle">Login</h1>
         <form onSubmit={submitRegistration}>
             <label >Username: </label>
             <input type="text" 
