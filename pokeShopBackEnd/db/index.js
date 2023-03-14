@@ -4,6 +4,11 @@ const { Client } = require('pg');
 const client = new Client()
 
 //db code stuff below
+/*=========================================================
+|                                                         |
+|                   Product SQL                           |
+|                                                         |
+=========================================================*/
 async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed}){
         try{
             const {rows:[product]} = await client.query(`
@@ -19,9 +24,7 @@ async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed
         }
 }
 
-async function updateProduct(productId, fields = {}){
-    const {prodName, prodDes, dollarAmt, stockCount, isListed} = fields;
-
+async function updateProduct(productId, fields = {}){ 
     const setString = Object.keys(fields).map(
         (key, index) => `"${key}"=$${index + 1}`
     ).join(', ')
@@ -71,6 +74,13 @@ async function getProductById(productId){
     }
 }
 
+
+
+/*=========================================================
+|                                                         |
+|                   Shopping Cart SQL                     |
+|                                                         |
+=========================================================*/
 async function createShoppingCart(userId){
     try{
         const {rows:[cart]} = await client.query(`
@@ -92,7 +102,7 @@ async function updateShoppingCart({id, productsList}){
             SET "productsList"=$2
             WHERE id=$1
             RETURNING *
-        `, {id, products})
+        `, [id, products])
 
         return cart
     } catch(e) {
@@ -100,7 +110,22 @@ async function updateShoppingCart({id, productsList}){
     }
 }
 
-async function getShoppingCartById(id){
+async function purchasedCart(cartId){
+    try{
+        const {rows:[cart]} = await client.query(`
+            UPDATE shopping_carts
+            SET "isPurchased"=true
+            WHERE id=$1
+            RETURNING *
+        `, [id])
+
+        return cart
+    } catch(e) {
+        throw e
+    }
+}
+
+async function getCartById(id){
     try{
         const {rows:[cart]} = await client.query(`
             SELECT *
@@ -117,7 +142,7 @@ async function getShoppingCartById(id){
 //returns the one shopping cart under user that is not purchased yet
 async function getShoppingCartByUserId(userId){
     try{
-        const {rows:[cart]} = await client.query(`
+        const {rows:cart} = await client.query(`
             SELECT *
             FROM shopping_carts
             WHERE "userId"=$1
@@ -130,8 +155,32 @@ async function getShoppingCartByUserId(userId){
     }
 }
 
+async function getPurchasedCartByUserId(userId){
+    try{
+        const {rows:carts} = await client.query(`
+            SELECT *
+            FROM shopping_carts
+            WHERE "userId"=$1
+            AND "isPurchased"=true
+        `,[userId])
+
+        return carts
+    } catch(e) {
+        throw e
+    }
+}
+
+
+/*=========================================================
+|                                                         |
+|                      User SQL                           |
+|                                                         |
+=========================================================*/
 async function createUser({ username, password, email, isAdmin}) {
     try {
+        if(isAdmin){
+            isAdmin=true
+        }
         const { rows: [ user ] } = await client.query(`
         INSERT INTO users(username, password, email, "isAdmin") 
         VALUES($1, $2, $3, $4) 
@@ -139,6 +188,9 @@ async function createUser({ username, password, email, isAdmin}) {
         RETURNING *;
         `, [username, password, email, isAdmin]);
 
+        //creates a default cart for every user
+        const cart = await createShoppingCart(user.id)
+        user.cart = cart
         delete user.password
         return user;
     } catch (error) {
@@ -147,11 +199,14 @@ async function createUser({ username, password, email, isAdmin}) {
 }
 
 async function updateUser(id, fields = {}) {
+    //prevents the user from updating user id
+    delete fields.id
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
     ).join(', ');
 
     if (setString.length === 0) {return;}
+
 
     try {
         const { rows: [ user ] } = await client.query(`
@@ -162,6 +217,12 @@ async function updateUser(id, fields = {}) {
         `, Object.values(fields))
 
         delete user.password
+
+        if(user){
+            const cart = await getShoppingCartByUserId(user.id)
+            user.cart = cart
+        }
+
         return user;
     } catch (error) {
     throw error;
@@ -175,10 +236,15 @@ async function getUserByUsername(username) {
         FROM users
         WHERE username=$1;
       `, [username]);
+
+      if(user){
+        const cart = await getShoppingCartByUserId(user.id)
+        user.cart = cart
+      }
   
       return user;
-    } catch (error) {
-      throw error;
+    } catch (e) {
+      throw e;
     }
 }
 
@@ -220,6 +286,12 @@ module.exports = {
     updateUser,
     getUserByUsername,
     getAllUsers,
-    getUserByEmail
+    getUserByEmail,
+    createShoppingCart,
+    updateShoppingCart,
+    purchasedCart,
+    getCartById,
+    getShoppingCartByUserId,
+    getPurchasedCartByUserId
 }
 

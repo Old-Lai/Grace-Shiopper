@@ -60,7 +60,7 @@ async function insertInitialData() {
     console.log('Starting to insert initial data...');
 
     const hashedPassword = await bcrypt.hash('admin123', 10);
-    createUser({ username:"admin", password:hashedPassword, email:"admin@example.com", isAdmin:true})
+    await createUser({ username:"admin", password:hashedPassword, email:"admin@example.com", isAdmin:true})
     
     console.log('Finished inserting initial data!');
   } catch (e) {

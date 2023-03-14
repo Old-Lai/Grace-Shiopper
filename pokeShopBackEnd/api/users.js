@@ -2,7 +2,7 @@ const express = require("express");
 const usersRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
-const { createUser, updateUser, getUserByUsername, getUserByEmail} = require("../db");
+const { createUser, getUserByUsername, getUserByEmail} = require("../db");
 
 usersRouter.post("/register", async (req, res, next) => {
   const { username, password, email } = req.body;
@@ -51,7 +51,7 @@ usersRouter.post("/register", async (req, res, next) => {
           process.env.JWT_SECRET
         );
 
-        res.send({ message: "Thank you for signing up!", token });
+        res.send({ message: "Thank you for signing up!", token, user});
       }
     }
   } catch ({ name, message }) {
@@ -78,8 +78,9 @@ usersRouter.post("/login", async (req, res, next) => {
           { id: user.id, username: user.username },
           process.env.JWT_SECRET
         );
-
-        res.send({ message: "You're logged in!", token });
+        
+        delete user.password
+        res.send({ message: "You're logged in!", token, user });
       } else {
         next({
           name: "IncorrectCredentialsError",
