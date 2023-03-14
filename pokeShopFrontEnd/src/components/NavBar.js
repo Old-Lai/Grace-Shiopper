@@ -1,15 +1,15 @@
 import {Link} from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Button from '@mui/material/Button';
 
-const NavBar = ({token, setToken}) => {
-    const navigate = useNavigate()
+ const NavBar = ({token, setToken}) => {
     function logOut(){ 
         localStorage.removeItem('username')
         localStorage.removeItem('saved_token')
         setToken('')
     }
+
 return (
     <nav className="nav-links">
         <Breadcrumbs >
@@ -21,7 +21,6 @@ return (
         </Breadcrumbs>
     </nav>
 )
-
 }
 
 export default NavBar

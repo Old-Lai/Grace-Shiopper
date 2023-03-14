@@ -1,10 +1,11 @@
 const express = require('express');
 const apiRouter = express.Router();
 const jwt = require('jsonwebtoken');
-const { getUserById } = require('../db');
+const { getUserByUsername } = require('../db');
 require('dotenv').config()
 const { JWT_SECRET } = process.env;
 const seed = require('../db/seed')
+
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
@@ -20,12 +21,12 @@ apiRouter.use(async (req, res, next) => {
         req.user = await getUserByUsername(username);
         next();
       }
-    } catch ({ name, message }) {
-      next({ name, message });
+    } catch ({ error, name, message }) {
+      next({ error, name, message });
     }
   } else {
-    next({
-      name: 'AuthorizationHeaderError',
+    res.send({
+      error: 'AuthorizationHeaderError',
       message: `Authorization token must start with ${ prefix }`
     });
   }
@@ -46,7 +47,6 @@ const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
 
 const cartRouter = require('./shoppingCart');
-const { getUserByUsername } = require('../db');
 apiRouter.use('/cart', cartRouter);
 
 apiRouter.use((error, req, res, next) => {
@@ -58,10 +58,10 @@ apiRouter.use((error, req, res, next) => {
 
 (async () => {
   try {
-    const _admin = getUserByUsername("admin")
+    const _admin = await getUserByUsername("admin")
     if(!_admin){
       await seed(); // Assuming seed function is imported
-    console.log("Database seeding complete!");
+      console.log("Database seeding complete!");
     }
   } catch (e) {
     console.error('Error seeding database!!!');
