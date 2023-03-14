@@ -9,7 +9,7 @@ export default products; */
 
 import { useState, useEffect } from "react";
 import { fetchAllProducts } from "../api";
-import ProductList from "../utils/AllProducts";
+import ProductList from "../components/product";
 //import { useNavigate } from "react-router-dom";
 
 
@@ -27,7 +27,9 @@ const Products = () => {
     return (
         <div className="panel">
             <h1>Products</h1>
-            <ProductList products={products} />
+            {products.map(( product ) => 
+            {<ProductList product={product} />} )}
+            
         </div>
     )
 };
