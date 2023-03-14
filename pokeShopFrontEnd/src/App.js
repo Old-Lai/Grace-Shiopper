@@ -6,7 +6,7 @@ import {
 import './index.css'
 import Home from "./routes/Home";
 import Register from "./routes/Register";
-import {Login} from "./routes"
+import {Login, Products} from "./routes"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,10 +21,10 @@ const router = createBrowserRouter([
         path: "Register",
         element: <Register />,
       },
-      // {
-      //   path: "Posts",
-      //   element: <Posts />,
-      // },
+      {
+        path: "Products",
+        element: <Products />,
+      },
       // {
       //   path: "Profile",
       //   element: <Profile />,
