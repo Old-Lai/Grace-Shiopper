@@ -21,12 +21,12 @@ apiRouter.use(async (req, res, next) => {
         req.user = await getUserByUsername(username);
         next();
       }
-    } catch ({ name, message }) {
-      next({ name, message });
+    } catch ({ error, name, message }) {
+      next({ error, name, message });
     }
   } else {
-    next({
-      name: 'AuthorizationHeaderError',
+    res.send({
+      error: 'AuthorizationHeaderError',
       message: `Authorization token must start with ${ prefix }`
     });
   }

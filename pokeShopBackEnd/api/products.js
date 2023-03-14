@@ -24,13 +24,13 @@ productsRouter.get('/', async (req, res, next) => {
 productsRouter.post('/', async (req, res, next) => {
   try{
     if(!req.user){
-      next({
-        name:"Unauthorized",
+      res.send({
+        error:"Unauthorized",
         message:"you need to be logged in"
       })
     } else if(!req.user.isAdmin){
-      next({
-        name:"Unauthorized",
+      res.send({
+        error:"Unauthorized",
         message:"you need to be an admin to do this action"
       })
     }
@@ -38,8 +38,8 @@ productsRouter.post('/', async (req, res, next) => {
     const { productName, productDescription, dollarAmt, stockCount } = req.body
     //if they did not provide the essential data
     if(!productName || !productDescription || !dollarAmt){
-      next({
-        name:"Missting Params",
+      res.send({
+        error:"Missting Params",
         message:`Missing essential params${!productName ? ", 'productName'" : ''}${!productDescription ? ", 'productDescription'" : ''}${!dollarAmt ? ", 'dolalrAmt'" : ''}`
       })
     }
@@ -55,13 +55,13 @@ productsRouter.post('/', async (req, res, next) => {
 productsRouter.post('/:productId', async (req,res,next) => {
   try{
     if(!req.user){
-      next({
-        name:"Unauthorized",
+      res.send({
+        error:"Unauthorized",
         message:"you need to be logged in"
       })
     } else if(!req.user.isAdmin){
-      next({
-        name:"Unauthorized",
+      res.send({
+        error:"Unauthorized",
         message:"you need to be an admin to do this action"
       })
     }
@@ -70,8 +70,8 @@ productsRouter.post('/:productId', async (req,res,next) => {
     const _product = await getProductById(productId)
     console.log(productId, _product)
     if(!_product){
-      next({
-        name:"Incorrect id",
+      res.send({
+        error:"Incorrect id",
         message:"No product of that id can be found"
       })
     }

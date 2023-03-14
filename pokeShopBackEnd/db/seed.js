@@ -44,6 +44,7 @@ async function createTables() {
         "prodDes" VARCHAR(255) NOT NULL,
         "dollarAmt" FLOAT NOT NULL,
         "stockCount" INTEGER DEFAULT 0,
+        "imageURL" VARCHAR(255),
         "isListed" BOOLEAN DEFAULT false
       );
     `);

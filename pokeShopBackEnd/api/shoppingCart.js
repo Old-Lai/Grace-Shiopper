@@ -13,8 +13,8 @@ cartRouter.get('/', async (req,res,next) => {
         //this should only trigger if something is wrong in frontend
         //guests should be able to use localStorage to store shopping carts
         if(!req.user){
-            next({
-                name:"Unauthorized",
+            res.send({
+                error:"Unauthorized",
                 message:"you need to login to do this action"
             })
         }
@@ -31,8 +31,8 @@ cartRouter.get('/', async (req,res,next) => {
 cartRouter.get('/history', async (req,res,next) => {
     try{
         if(!req.user){
-            next({
-                name:"Unauthorized",
+            res.send({
+                error:"Unauthorized",
                 message:"you need to login to do this action"
             })
         }
