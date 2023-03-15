@@ -38,3 +38,14 @@ let result = await response.json()
     console.error(err)
   }
 }
+
+export async function fetchAllProducts(){
+  try{
+    let response = await fetch(`${API_URL}products`)
+    let result = await response.json()
+
+    return result
+  } catch(e) {
+    console.error(e)
+  }
+}

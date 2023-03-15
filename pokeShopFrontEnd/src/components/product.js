@@ -1,12 +1,9 @@
 import { useNavigate} from "react-router-dom";
-import jwt_decode from 'jwt-decode';
 
 const ProductList = ({ product, user }) => {
     const {_id, image, prodName, prodDes, dollarAmt, stockCount} = product
     //const navigate = useNavigate();
     //const token = localStorage.getItem('token')
-    
-    //const { username } = jwt_decode(token);
 
     const addToCart = () => {
 
@@ -29,4 +26,4 @@ const ProductList = ({ product, user }) => {
     
 }
 
-export default PostList;
+export default ProductList;
