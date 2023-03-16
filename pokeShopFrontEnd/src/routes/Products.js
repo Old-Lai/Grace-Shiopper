@@ -9,8 +9,9 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     useEffect(() => {
         Promise.all([fetchAllProducts()])
-        .then(([products]) => {
+        .then((response) => {
             setProducts(products)
+            console.log(response)
         })
     }, []);
 
@@ -18,8 +19,8 @@ const Products = () => {
     return (
         <div className="panel">
             <h1>Products</h1>
-            {products.map(( product ) => 
-            {<ProductList product={product} />} )}
+            {/* {products && products.map(( product ) => 
+            {<ProductList product={product} />} )} */}
             
         </div>
     )

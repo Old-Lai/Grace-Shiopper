@@ -49,12 +49,12 @@ async function updateProduct(productId, fields = {}){
 
 async function getAllProducts(){
     try{
-        const {rows} = await client.query(`
+        const {rows:products} = await client.query(`
             SELECT *
             FROM products;
         `)
 
-        return rows
+        return products
     } catch(e) {
         throw e
     }

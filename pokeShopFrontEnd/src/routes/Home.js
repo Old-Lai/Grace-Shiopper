@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
 const Home = () => {
-    const [token, setToken] = useState(localStorage.getItem("saved_token"));
+    const [token, setToken] = useState(localStorage.getItem("token"));
     return (
     <div>
         <header>
