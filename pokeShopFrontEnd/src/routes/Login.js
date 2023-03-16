@@ -20,7 +20,7 @@ const Login = () => {
     //     }
     //  }, [token, navigate])
 
-    async function submitLogin(e) {
+    async function submitLogin() {
         const user = {
                 username,
                 password
