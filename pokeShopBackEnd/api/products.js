@@ -40,7 +40,7 @@ productsRouter.post('/', async (req, res, next) => {
     if(!productName || !productDescription || !dollarAmt){
       res.send({
         error:"Missting Params",
-        message:`Missing essential params${!productName ? ", 'productName'" : ''}${!productDescription ? ", 'productDescription'" : ''}${!dollarAmt ? ", 'dolalrAmt'" : ''}`
+        message:`Missing essential params${!productName ? ", 'productName'" : ''}${!productDescription ? ", 'productDescription'" : ''}${!dollarAmt ? ", 'dollarAmt'" : ''}`
       })
     }
 
