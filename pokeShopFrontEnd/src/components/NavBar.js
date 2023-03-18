@@ -4,7 +4,7 @@ import {Button, Breadcrumbs} from '@mui/material';
  const NavBar = ({token, setToken}) => {
     function logOut(){ 
         localStorage.removeItem('username')
-        localStorage.removeItem('saved_token')
+        localStorage.removeItem('token')
         setToken('')
     }
 

@@ -18,7 +18,9 @@ async function getPokemonData() {
       }
     }); 
     const data = await response.json();
+    
     const pokemonData = [];
+
     for (let pokemon of data.results) {
       const pokemonResponse = await fetch(pokemon.url);
       const pokemonDetails = await pokemonResponse.json();
@@ -28,6 +30,7 @@ async function getPokemonData() {
   
       const spriteUrls = Object.values(pokemonDetails.sprites).filter(url => url !== null && url !== undefined && typeof url === 'string');
       const image_url = spriteUrls.join(';');
+
         console.log(image_url)
       pokemonData.push({
         name: pokemonDetails.name,
