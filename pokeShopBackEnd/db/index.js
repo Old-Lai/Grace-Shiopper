@@ -12,32 +12,35 @@ const fetch = require('node-fetch');
 =========================================================*/
 async function getPokemonData() {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20', {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'en'
-        }})
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept-Language': 'en'
+      }
+    }); 
     const data = await response.json();
     const pokemonData = [];
-  
     for (let pokemon of data.results) {
       const pokemonResponse = await fetch(pokemon.url);
       const pokemonDetails = await pokemonResponse.json();
-        
+  
       const speciesResponse = await fetch(`${pokemonDetails.species.url}?language=en`);
       const speciesData = await speciesResponse.json();
-        console.log(pokemonDetails.name)
+  
+      const spriteUrls = Object.values(pokemonDetails.sprites).filter(url => url !== null && url !== undefined && typeof url === 'string');
+      const image_url = spriteUrls.join(';');
+        console.log(image_url)
       pokemonData.push({
         name: pokemonDetails.name,
         prodDes: speciesData.flavor_text_entries[0].flavor_text,
-        image_url: pokemonDetails.sprites.front_default,
-        dollarAmt: 0 ,
+        image_url,
+        dollarAmt: 0,
         stockCount: 0
       });
     }
   
     return pokemonData;
   }
-  
+
 async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed}){
     try{
         const {rows:[product]} = await client.query(`
@@ -52,12 +55,13 @@ async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed
         throw e
     }
 }
+
 async function createProducts(products) {
     try {
-      const values = products.map(({ name, prodDes, dollarAmt, stockCount, isListed }) => [name, prodDes, dollarAmt, stockCount, isListed]);
+      const values = products.map(({ name, prodDes, dollarAmt, stockCount, isListed, image_url}) => [name, prodDes, dollarAmt, stockCount, isListed, image_url]);
       const { rows } = await client.query(`
-        INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount", "isListed")
-        VALUES ${values.map((_, index) => `($${index * 5 + 1}, $${index * 5 + 2}, $${index * 5 + 3}, $${index * 5 + 4}, $${index * 5 + 5})`).join(', ')}
+        INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount", "isListed",image_url)
+        VALUES ${values.map((_, index) => `($${index * 6 + 1}, $${index * 6 + 2}, $${index * 6 + 3}, $${index * 6 + 4}, $${index * 6 + 5},$${index * 6 + 6})`).join(', ')}
         ON CONFLICT DO NOTHING
         RETURNING *;
       `, values.flat());
