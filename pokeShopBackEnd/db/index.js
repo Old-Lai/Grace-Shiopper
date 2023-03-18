@@ -41,11 +41,11 @@ async function getPokemonData() {
     return pokemonData;
   }
 
-async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed}){
+async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed, image_url}){
     try{
         const {rows:[product]} = await client.query(`
-            INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount", "isListed")
-            VALUES($1, $2, $3, $4, $5)
+            INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount", "isListed", image_url)
+            VALUES($1, $2, $3, $4, $5, $6)
             ON CONFLICT DO NOTHING
             RETURNING *;
         `,[prodName, prodDes, dollarAmt, stockCount, isListed])
