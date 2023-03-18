@@ -1,7 +1,5 @@
 import {Link} from 'react-router-dom'
-
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Button from '@mui/material/Button';
+import {Button, Breadcrumbs} from '@mui/material';
 
  const NavBar = ({token, setToken}) => {
     function logOut(){ 
@@ -11,10 +9,9 @@ import Button from '@mui/material/Button';
     }
 
 return (
-    <nav className="nav-links">
+    <nav className="nav-links"> 
         <Breadcrumbs >
-            <Link to='/'>Home</Link>
-            <Link to='Products'>Products</Link>
+            <Link to='/'>Products</Link>
             {!token && <Link to='Register'>Register</Link>}
             {!token && <Link to='Login'>Login</Link>}
             {token && <Button onClick={()=>logOut()}>Logout</Button>}

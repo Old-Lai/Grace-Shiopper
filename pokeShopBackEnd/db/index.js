@@ -40,7 +40,22 @@ async function getPokemonData() {
   
     return pokemonData;
   }
-  
+
+async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed}){
+    try{
+        const {rows:[product]} = await client.query(`
+            INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount", "isListed")
+            VALUES($1, $2, $3, $4, $5)
+            ON CONFLICT DO NOTHING
+            RETURNING *;
+        `,[prodName, prodDes, dollarAmt, stockCount, isListed])
+
+        return product
+    } catch(e) {
+        throw e
+    }
+}
+
 async function createProducts(products) {
     try {
       const values = products.map(({ name, prodDes, dollarAmt, stockCount, isListed, image_url}) => [name, prodDes, dollarAmt, stockCount, isListed, image_url]);
