@@ -2,6 +2,7 @@
 require('dotenv').config()
 const { Client } = require('pg');
 const client = new Client()
+const fetch = require('node-fetch');
 
 //db code stuff below
 /*=========================================================
@@ -9,20 +10,67 @@ const client = new Client()
 |                   Product SQL                           |
 |                                                         |
 =========================================================*/
-async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed}){
-        try{
-            const {rows:[product]} = await client.query(`
-                INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount", "isListed")
-                VALUES($1, $2, $3, $4, $5)
-                ON CONFLICT DO NOTHING
-                RETURNING *;
-            `,[prodName, prodDes, dollarAmt, stockCount, isListed])
+async function getPokemonData() {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept-Language': 'en'
+      }
+    }); 
+    const data = await response.json();
+    const pokemonData = [];
+    for (let pokemon of data.results) {
+      const pokemonResponse = await fetch(pokemon.url);
+      const pokemonDetails = await pokemonResponse.json();
+  
+      const speciesResponse = await fetch(`${pokemonDetails.species.url}?language=en`);
+      const speciesData = await speciesResponse.json();
+  
+      const spriteUrls = Object.values(pokemonDetails.sprites).filter(url => url !== null && url !== undefined && typeof url === 'string');
+      const image_url = spriteUrls.join(';');
+        console.log(image_url)
+      pokemonData.push({
+        name: pokemonDetails.name,
+        prodDes: speciesData.flavor_text_entries[0].flavor_text,
+        image_url,
+        dollarAmt: 0,
+        stockCount: 0
+      });
+    }
+  
+    return pokemonData;
+  }
 
-            return product
-        } catch(e) {
-            throw e
-        }
+async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed}){
+    try{
+        const {rows:[product]} = await client.query(`
+            INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount", "isListed")
+            VALUES($1, $2, $3, $4, $5)
+            ON CONFLICT DO NOTHING
+            RETURNING *;
+        `,[prodName, prodDes, dollarAmt, stockCount, isListed])
+
+        return product
+    } catch(e) {
+        throw e
+    }
 }
+
+async function createProducts(products) {
+    try {
+      const values = products.map(({ name, prodDes, dollarAmt, stockCount, isListed, image_url}) => [name, prodDes, dollarAmt, stockCount, isListed, image_url]);
+      const { rows } = await client.query(`
+        INSERT INTO products(name, "prodDes", "dollarAmt", "stockCount", "isListed",image_url)
+        VALUES ${values.map((_, index) => `($${index * 6 + 1}, $${index * 6 + 2}, $${index * 6 + 3}, $${index * 6 + 4}, $${index * 6 + 5},$${index * 6 + 6})`).join(', ')}
+        ON CONFLICT DO NOTHING
+        RETURNING *;
+      `, values.flat());
+  
+      return rows;
+    } catch (e) {
+      throw e;
+    }
+  }
 
 async function updateProduct(productId, fields = {}){ 
     const setString = Object.keys(fields).map(
@@ -278,7 +326,8 @@ async function getUserByEmail(email) {
 //export
 module.exports = {
     client,
-    createProduct,
+    getPokemonData,
+    createProducts,
     updateProduct,
     getAllProducts,
     getProductById,

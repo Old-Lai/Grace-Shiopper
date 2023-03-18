@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
-const { createProduct } = require('./index.js');
 const { client, createUser } = require("./index.js")
+const { createProducts, getPokemonData} = require('./index.js');
+
 
 async function dropTables() {
   try {
@@ -45,7 +46,7 @@ async function createTables() {
         "prodDes" VARCHAR(255) NOT NULL,
         "dollarAmt" FLOAT NOT NULL,
         "stockCount" INTEGER DEFAULT 0,
-        image_url VARCHAR(), 
+        image_url   VARCHAR(65535),
         "isListed" BOOLEAN DEFAULT false
       );
     `);
@@ -64,9 +65,11 @@ async function insertInitialData() {
     const hashedPassword = await bcrypt.hash('admin123', 10);
 
     await createUser({ username:"admin", password:hashedPassword, email:"admin@example.com", isAdmin:true})
-    const POKEIMG_URL = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/` //skg
 
-    await createProduct({prodName:"Test1", prodDes:"Test2", dollarAmt:"100.12", stockCount:"0"})
+    const pokemonData = await getPokemonData();
+
+
+    await createProducts(pokemonData);
 
     
     console.log('Finished inserting initial data!');
