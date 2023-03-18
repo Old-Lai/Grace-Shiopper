@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
-const { createProducts, getPokemonData} = require('./index.js');
 const { client, createUser } = require("./index.js")
+const { createProducts, getPokemonData} = require('./index.js');
+
 
 async function dropTables() {
   try {
@@ -45,7 +46,7 @@ async function createTables() {
         "prodDes" VARCHAR(255) NOT NULL,
         "dollarAmt" FLOAT NOT NULL,
         "stockCount" INTEGER DEFAULT 0,
-
+        image_url   VARCHAR(65535),
         "isListed" BOOLEAN DEFAULT false
       );
     `);

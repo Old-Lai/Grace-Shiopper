@@ -58,8 +58,8 @@ apiRouter.use((error, req, res, next) => {
 
 (async () => {
   try {
-    const _admin = await getUserByUsername("admin")
-    if(_admin){
+    //const _admin = await getUserByUsername("admin")
+    if(true){
       await seed(); // Assuming seed function is imported
       console.log("Database seeding complete!");
     }
