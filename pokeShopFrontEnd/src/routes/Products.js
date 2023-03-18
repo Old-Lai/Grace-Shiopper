@@ -15,19 +15,25 @@ const Products = () => {
     }, []);
   
     return (
-      <div className="panel">
+      <div>
         <h1>Products</h1>
-        <Grid container spacing={3}>
+          <Box 
+          sx={{
+            display:"flex",
+            flexWrap:"wrap",
+            justifyContent:"center"
+          }}
+          >
           {products &&
             products.map((product) => {
                 console.log(product)
               return (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={product._id}>
+                
                   <ProductList product={product} token={token} />
-                </Grid>
+                
               );
             })}
-        </Grid>
+        </Box>
       </div>
     );
   };
