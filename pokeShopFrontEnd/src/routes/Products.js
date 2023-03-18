@@ -22,7 +22,7 @@ const Products = () => {
         <div className="panel">
             <h1>Products</h1>
             {products && products.map(( product ) => 
-            { return <ProductList product={product} token={token} />} )}
+            { return <ProductList product={product} token={token} key={product.id}/>} )}
         </div>
     )
 };
