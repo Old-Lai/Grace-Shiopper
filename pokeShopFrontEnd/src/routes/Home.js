@@ -5,7 +5,6 @@ import { useState } from "react"
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Home = () => {
     const [token, setToken] = useState(localStorage.getItem("token"));
