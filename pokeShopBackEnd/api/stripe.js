@@ -32,7 +32,7 @@ stripeRouter.post('/checkout', async (req, res, next) => {
         cancel_url: `${DOMAIN}/checkout?canceled=true`,
         }); 
 
-        res.redirect(303, session.url)
+        res.send({url:session.url})
     } catch({name, message}){
         next({name, message})
     }
