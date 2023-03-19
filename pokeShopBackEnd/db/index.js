@@ -338,6 +338,7 @@ async function getUserByEmail(email) {
 module.exports = {
     client,
     getPokemonData,
+    createProduct,
     createProducts,
     updateProduct,
     getAllProducts,

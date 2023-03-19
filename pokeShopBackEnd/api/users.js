@@ -102,9 +102,8 @@ usersRouter.get("/me", async (req, res, next) => {
         message:"you need to be logged in"
       })
     }
-
-    const user = await getUserByUsername(req.user.username)
-    res.send({user})
+    delete req.user.password
+    res.send({user: req.user})
   } catch ({ error, name, message }) {
     next({ error, name, message });
   }
