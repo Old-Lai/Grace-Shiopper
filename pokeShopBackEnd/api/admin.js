@@ -27,4 +27,4 @@ adminRouter.get("/users",  async (req, res, next) => {
   }
 });
 
-module.exports = router;
+module.exports = adminRouter;
