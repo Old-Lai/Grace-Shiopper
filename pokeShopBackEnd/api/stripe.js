@@ -8,7 +8,7 @@ stripeRouter.post('/checkout', async (req, res, next) => {
     try{
         const { products } = req.body
         if(!products){
-            return ("");
+            res.send({});
         }
 
         const line_items = products.map(product => {
@@ -32,7 +32,7 @@ stripeRouter.post('/checkout', async (req, res, next) => {
         cancel_url: `${DOMAIN}/checkout?canceled=true`,
         }); 
 
-        return session.url
+        res.send({stripe_url:session.url})
     } catch({name, message}){
         next({name, message})
     }
