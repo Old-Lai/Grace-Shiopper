@@ -13,7 +13,8 @@ const ProductList = ({ product, token }) => {
   return (
     <Card
       sx={{
-        maxWidth: "400px",
+        margin:"5px",
+        width: "400px",
         maxHeight: "280px",
         position: "relative",
       }}
