@@ -11,14 +11,15 @@ const fetch = require('node-fetch');
 |                                                         |
 =========================================================*/
 async function getPokemonData() {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20', {
+    try{
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20', {
       headers: {
         'Content-Type': 'application/json',
         'Accept-Language': 'en'
       }
     }); 
     const data = await response.json();
-    
+
     const pokemonData = [];
 
     for (let pokemon of data.results) {
@@ -44,6 +45,14 @@ async function getPokemonData() {
     return pokemonData;
   }
 
+
+ catch (error){
+    console.error(error)
+
+    }
+    
+  
+
 async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed, image_url}){
     try{
         const {rows:[product]} = await client.query(`
@@ -59,6 +68,7 @@ async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed
     }
 }
 
+
 async function createProducts(products) {
     try {
       const values = products.map(({ name, prodDes, dollarAmt, stockCount, isListed, image_url}) => [name, prodDes, dollarAmt, stockCount, isListed, image_url]);
@@ -70,8 +80,8 @@ async function createProducts(products) {
       `, values.flat());
   
       return rows;
-    } catch (e) {
-      throw e;
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -93,8 +103,8 @@ async function updateProduct(productId, fields = {}){
         `, Object.values(fields))
 
         return product
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -106,8 +116,8 @@ async function getAllProducts(){
         `)
 
         return products
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -120,8 +130,8 @@ async function getProductById(productId){
         `,[productId])
 
         return product
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -141,8 +151,8 @@ async function createShoppingCart(userId){
         `, [userId])
 
         return cart
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -156,8 +166,8 @@ async function updateShoppingCart({id, productsList}){
         `, [id, products])
 
         return cart
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -171,8 +181,8 @@ async function purchasedCart(cartId){
         `, [id])
 
         return cart
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -185,8 +195,8 @@ async function getCartById(id){
         `, [id])
 
         return cart
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -201,8 +211,8 @@ async function getShoppingCartByUserId(userId){
         `, [userId])
 
         return cart
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -216,8 +226,8 @@ async function getPurchasedCartByUserId(userId){
         `,[userId])
 
         return carts
-    } catch(e) {
-        throw e
+    } catch(error) {
+        console.error(error)
     }
 }
 
@@ -245,7 +255,7 @@ async function createUser({ username, password, email, isAdmin}) {
         delete user.password
         return user;
     } catch (error) {
-    throw error;
+    console.error(error)
     }
 }
 
@@ -276,7 +286,7 @@ async function updateUser(id, fields = {}) {
 
         return user;
     } catch (error) {
-    throw error;
+        console.error(error)
     }
 }
 
@@ -294,8 +304,8 @@ async function getUserByUsername(username) {
       }
   
       return user;
-    } catch (e) {
-      throw e;
+    } catch (error) {
+     console.error(error)
     }
 }
 
@@ -308,7 +318,8 @@ async function getAllUsers() {
 
         return rows;
     } catch (error) {
-        throw error;
+        console.error(error)
+    
     }
 }
 
@@ -322,7 +333,7 @@ async function getUserByEmail(email) {
 
       return user;
     } catch (error) {
-      throw error;
+      console.error(error)
     }
 }
 
