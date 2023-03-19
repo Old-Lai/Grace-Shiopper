@@ -1,5 +1,7 @@
+require('dotenv').config()
 const express = require("express");
 const stripeRouter = express.Router();
+const stripe = require('stripe')(process.env.STRIPE_SECRET 
 const DOMAIN = 'http://localhost:3000'; //change this when deploy
 
 stripeRouter.post('/checkout', async (req, res, next) => {
