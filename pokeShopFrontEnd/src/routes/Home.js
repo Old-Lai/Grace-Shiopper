@@ -5,23 +5,23 @@ import { useState } from "react"
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Home = () => {
     const [token, setToken] = useState(localStorage.getItem("token"));
+    const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin"))
     return (
     <div>
         <header>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Stack direction="row" spacing={2}  alignItems="center">
                     <Typography margin={1} variant="h6" gutterBottom>Pokefeud</Typography>
-                    <NavBar token = {token} setToken = {setToken}/>
+                    <NavBar token = {token} setToken = {setToken} isAdmin = {isAdmin} setIsAdmin = {setIsAdmin}/>
                 </Stack>
                 <Cart token={token}/>
             </Stack>
         </header>
         <main>
-            <Outlet context={[token, setToken]}/>
+            <Outlet context={[token, setToken, isAdmin, setIsAdmin]}/>  
         </main>
     </div>
     

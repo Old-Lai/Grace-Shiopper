@@ -1,13 +1,15 @@
 import {Link} from 'react-router-dom'
 import {Button, Breadcrumbs} from '@mui/material';
-
- const NavBar = ({token, setToken}) => {
+import { getUserInfo } from "../api";
+ const NavBar = ({token, setToken, isAdmin, setIsAdmin }) => {
     function logOut(){ 
         localStorage.removeItem('username')
         localStorage.removeItem('token')
+        localStorage.removeItem('isAdmin')
         setToken('')
+        setIsAdmin(null)
     }
-
+    
 return (
     <nav className="nav-links"> 
         <Breadcrumbs >

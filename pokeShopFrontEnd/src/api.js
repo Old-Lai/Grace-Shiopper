@@ -49,3 +49,18 @@ export async function fetchAllProducts(){
     console.error(e)
   }
 }
+export async function getUserInfo(token) {
+  try {
+    let response = await fetch(`${API_URL}users/me`, {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization' : `Bearer ${token}`
+  },
+}) 
+let result = await response.json()
+console.log(result)
+  return result
+  } catch(err){
+    console.error(err)
+  }
+}
