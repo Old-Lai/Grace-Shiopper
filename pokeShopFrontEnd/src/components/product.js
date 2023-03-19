@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const ProductList = ({ product, token }) => {
-  const { _id, name, prodDes, dollarAmt, stockCount, image_url } = product;
-  console.log(product)
+  const { id, name, prodDes, dollarAmt, stockCount, image_url } = product;
+ 
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -18,7 +18,7 @@ const ProductList = ({ product, token }) => {
         maxHeight: "280px",
         position: "relative",
       }}
-      onMouseEnter={() => setHoveredCard(_id)}
+      onMouseEnter={() => setHoveredCard(id)}
       onMouseLeave={() => setHoveredCard(null)}
     >
       <CardContent>
@@ -27,8 +27,9 @@ const ProductList = ({ product, token }) => {
         <h4>Price: {dollarAmt}</h4>
         <Typography sx={{ margin: "10px" }}>Stock: {stockCount}</Typography>
       </CardContent>
-      {hoveredCard === _id && (
+      {hoveredCard === id && (
         <Box
+        key={product.id} 
           sx={{
             position: "absolute",
             bottom: "0px",
@@ -37,7 +38,7 @@ const ProductList = ({ product, token }) => {
           }}
         >
           <CardActions>
-            <Button sx={{ml:"250px"}}onClick={() => addToCart(_id)} variant="contained">
+            <Button sx={{ml:"250px"}}onClick={() => addToCart(id)} variant="contained">
               ADD TO CART
             </Button>
           </CardActions>
