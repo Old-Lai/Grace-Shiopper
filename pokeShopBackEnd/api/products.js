@@ -10,7 +10,7 @@ productsRouter.use((req, res, next) => {
   console.log("A request is being made to /products");
   next();
 });
-
+  
 productsRouter.get('/', async (req, res, next) => {
   try{
     const products = await getAllProducts()
