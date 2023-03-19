@@ -13,7 +13,6 @@ export async function registerUser({username, password, email}) {
     })
   }) 
   let result = await response.json()
-  console.log(result)
     return result
     } catch(err){
       console.error(err)
@@ -58,7 +57,6 @@ export async function getUserInfo(token) {
   },
 }) 
 let result = await response.json()
-console.log(result)
   return result
   } catch(err){
     console.error(err)

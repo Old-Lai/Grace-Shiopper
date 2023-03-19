@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 
 const Home = () => {
     const [token, setToken] = useState(localStorage.getItem("token"));
-    const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin"))
+    const [isAdmin, setIsAdmin] = useState(false);
     return (
     <div>
         <header>
@@ -17,11 +17,11 @@ const Home = () => {
                     <Typography margin={1} variant="h6" gutterBottom>Pokefeud</Typography>
                     <NavBar token = {token} setToken = {setToken} isAdmin = {isAdmin} setIsAdmin = {setIsAdmin}/>
                 </Stack>
-                <Cart token={token}/>
+                {/* <Cart token={token}/> */}
             </Stack>
         </header>
         <main>
-            <Outlet context={[token, setToken, isAdmin, setIsAdmin]}/>  
+        <Outlet context={[token, setToken, isAdmin, setIsAdmin]}/>
         </main>
     </div>
     

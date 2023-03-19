@@ -11,7 +11,6 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [token, setToken] = useOutletContext();
-    const [isAdmin, setIsAdmin] = useOutletContext()
     const navigate = useNavigate();
     
     // useEffect(() => {
@@ -20,28 +19,19 @@ const Login = () => {
     //     }
     //  }, [token, navigate])
 
-    async function submitLogin(e) {
+    async function submitLogin() {
         const user = {
           username,
           password
         }
       
         const response = await loginUser(user);
-        console.log(response)
       
         if (response.error) {
           setErrorMessage(response.message);
         } else {
           localStorage.setItem('token', response.token);
           setToken(response.token);
-      
-          if (response.user && response.user.isAdmin) {
-            setIsAdmin(true);
-            localStorage.setItem('isAdmin', true);
-          } else {
-            setIsAdmin(false);
-            localStorage.removeItem('isAdmin');
-          }
       
           navigate('/')
         }
