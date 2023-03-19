@@ -43,15 +43,12 @@ async function getPokemonData() {
     }
   
     return pokemonData;
-  }
-
-
- catch (error){
+  } catch (error){
     console.error(error)
 
     }
     
-  
+}
 
 async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed, image_url}){
     try{
