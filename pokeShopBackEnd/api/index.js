@@ -50,10 +50,10 @@ const cartRouter = require('./shoppingCart');
 apiRouter.use('/cart', cartRouter);
 
 const adminRouter = require('./admin')
-apiRouter.use('./admin', adminRouter)
+apiRouter.use('/admin', adminRouter)
 
 const stripeRouter = require('./stripe')
-apiRouter.use('./stripe', stripeRouter)
+apiRouter.use('/stripe', stripeRouter)
 
 apiRouter.use((error, req, res, next) => {
   res.send({
