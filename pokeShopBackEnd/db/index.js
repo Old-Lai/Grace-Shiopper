@@ -309,7 +309,7 @@ async function getUserByUsername(username) {
 async function getAllUsers() {
     try {
         const { rows } = await client.query(`
-            SELECT id, username, email, isAdmin
+            SELECT id, username, email, "isAdmin"
             FROM users;
         `);
 
