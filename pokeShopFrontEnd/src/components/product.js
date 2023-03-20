@@ -26,7 +26,7 @@ const ProductList = ({ product, token }) => {
         height: "280px",
         position: "relative",
       }}
-      onMouseEnter={() => setHoveredCard(id)}
+      onMouseEnter={() => setHoveredCard(_id)}
       onMouseLeave={() => setHoveredCard(null)}
     >
       <CardContent>
@@ -35,9 +35,9 @@ const ProductList = ({ product, token }) => {
         <h4>Price: {dollarAmt}</h4>
         <Typography sx={{ margin: "10px" }}>Stock: {stockCount}</Typography>
       </CardContent>
-      {hoveredCard === id && (
+      {hoveredCard === _id && (
         <Box
-        key={product.id} 
+        key={_id} 
           sx={{
             position: "absolute",
             bottom: "0px",

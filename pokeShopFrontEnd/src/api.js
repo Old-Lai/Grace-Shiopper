@@ -69,3 +69,23 @@ export async function createCheckout(products = []){
     console.error(e)
   }
 }
+
+export async function getUserInfo(token){
+  try{
+    if(!token){
+      return ""
+    }
+
+    let response = await fetch(`${API_URL}users/me`,{
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    let result = await response.json()
+
+    return result
+  } catch(e) {
+    console.error(e)
+  }
+}

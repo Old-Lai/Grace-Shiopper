@@ -10,7 +10,7 @@ const Products = () => {
   
   useEffect(() => {
     async function fetchProducts() {
-      const response = await fetchAllProducts(token);
+      const response = await fetchAllProducts();
       setProducts(response.products)
     }
     fetchProducts();
@@ -19,7 +19,7 @@ const Products = () => {
   useEffect(() => {
     if(token) {
       getUserInfo(token).then((response) => {
-        setIsAdmin(response.user.isAdmin ? response.user.isAdmin : false);
+        setIsAdmin(response.user.isAdmin);
       });
     }
     
@@ -40,7 +40,7 @@ const Products = () => {
           products.map((product) => {
             // console.log(product)
             return (
-                <ProductList product={product} token={token} />
+                <ProductList product={product} token={token} key={product.id}/>
             );
           })}
       </Box>

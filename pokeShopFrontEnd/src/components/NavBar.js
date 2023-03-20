@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom'
 import {Button, Breadcrumbs} from '@mui/material';
 import { getUserInfo } from "../api";
  const NavBar = ({token, setToken, setIsAdmin}) => {
-    console.log(token)
     function logOut(){ 
         localStorage.removeItem('username')
         localStorage.removeItem('token')
