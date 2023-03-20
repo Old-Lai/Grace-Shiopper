@@ -7,6 +7,7 @@ import { NavBar, ProductList } from "../components";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [token, setToken, isAdmin, setIsAdmin] = useOutletContext();
+  
   useEffect(() => {
     async function fetchProducts() {
       const response = await fetchAllProducts(token);
@@ -36,9 +37,14 @@ const Products = () => {
   
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {products &&
-          products.map((product) => {
-            return <ProductList key={product.id} product={product} token={token} />;
-          })}
+            products.map((product) => {
+                console.log(product)
+              return (
+                // <Elements stripe={stripePromise}>
+                  <ProductList product={product} token={token} />
+                // </Elements>
+              );
+            })}
       </Box>
     </Box>
   );

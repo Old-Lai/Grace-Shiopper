@@ -1,14 +1,22 @@
 import { Card, CardContent, CardActions, Button, Typography, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { createCheckout } from "../api";
+// import { useStripe } from "@stripe/react-stripe-js"
 
 const ProductList = ({ product, token }) => {
-  const { id, name, prodDes, dollarAmt, stockCount, image_url } = product;
- 
+  const { _id, name, prodDes, dollarAmt, stockCount, image_url } = product;
+
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const addToCart = () => {};
+  const addToCart = async() => {
+    console.log(product)
+    const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
+    const response = await createCheckout(products)
+    console.log(response.session.url)
+    window.open(response.session.url)
+  };
 
   return (
     <Card
@@ -38,7 +46,7 @@ const ProductList = ({ product, token }) => {
           }}
         >
           <CardActions>
-            <Button sx={{ml:"250px"}}onClick={() => addToCart(id)} variant="contained">
+            <Button sx={{ml:"250px"}}onClick={() => addToCart()} variant="contained">
               ADD TO CART
             </Button>
           </CardActions>
