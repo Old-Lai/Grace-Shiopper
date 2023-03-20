@@ -49,3 +49,24 @@ export async function fetchAllProducts(){
     console.error(e)
   }
 }
+
+export async function createCheckout(products = []){
+  try {
+    if(!products){
+      return ""
+    }
+    let response = await fetch(`${API_URL}stripe/checkout/`, {
+      method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        products
+    })
+    })
+    let result = await response.json()
+    return result
+  } catch(e) {
+    console.error(e)
+  }
+}
