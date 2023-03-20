@@ -13,11 +13,10 @@ export async function registerUser({username, password, email}) {
       })
     }) 
   let result = await response.json()
-  console.log(result)
-  return result
-  } catch(err){
-    console.error(err)
-  }
+    return result
+    } catch(err){
+      console.error(err)
+    }
 }
 
 export async function loginUser({username, password}) {
@@ -44,6 +43,27 @@ export async function fetchAllProducts(){
     let response = await fetch(`${API_URL}products`)
     let result = await response.json()
 
+    return result
+  } catch(e) {
+    console.error(e)
+  }
+}
+
+export async function createCheckout(products = []){
+  try {
+    if(!products){
+      return ""
+    }
+    let response = await fetch(`${API_URL}stripe/checkout/`, {
+      method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        products
+    })
+    })
+    let result = await response.json()
     return result
   } catch(e) {
     console.error(e)

@@ -12,9 +12,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
-
-    const [token, setToken] = useOutletContext();
-    //console.log(setToken);
+    const [token, setToken] = useOutletContext(null);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
    async function submitRegistration() {   
@@ -33,13 +31,13 @@ const Register = () => {
            }
            
            const response = await registerUser(user);
-        //    console.log(response)
+
            if (response.error) {
                setErrorMessage(response.message);
            } else {
                localStorage.setItem('token', response.token);
                setToken(response.token);
-               navigate('/products')
+               navigate('/')
            }
        }
    }

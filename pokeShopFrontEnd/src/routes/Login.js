@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { loginUser } from '../api';
+import { getUserInfo, loginUser } from '../api';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import  TextField from '@mui/material/TextField';
@@ -11,25 +11,24 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [token, setToken] = useOutletContext();
-    
     const navigate = useNavigate();
 
-    async function submitLogin(e) {
+    async function submitLogin() {
         const user = {
-                username,
-                password
+          username,
+          password
         }
-        
-         const response = await loginUser(user);
-         console.log(response)
+      
+        const response = await loginUser(user);
+      
         if (response.error) {
-            setErrorMessage(response.message);
+          setErrorMessage(response.message);
         } else {
             localStorage.setItem('token', response.token);
             setToken(response.token);
             navigate('/')
         }
-    }
+      }
     
     return (
     <section className="registerCss">
