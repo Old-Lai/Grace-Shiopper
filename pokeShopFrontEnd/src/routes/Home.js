@@ -16,7 +16,7 @@ const Home = () => {
                     <Typography margin={1} variant="h6" gutterBottom>Pokefeud</Typography>
                     <NavBar token = {token} setToken = {setToken} isAdmin = {isAdmin} setIsAdmin = {setIsAdmin}/>
                 </Stack>
-                {/* <Cart token={token}/> */}
+                <Cart token={token}/>
             </Stack>
         </header>
         <main>
