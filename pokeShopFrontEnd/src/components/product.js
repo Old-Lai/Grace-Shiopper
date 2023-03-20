@@ -1,24 +1,32 @@
 import { Card, CardContent, CardActions, Button, Typography, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { createCheckout } from "../api";
+// import { useStripe } from "@stripe/react-stripe-js"
 
 const ProductList = ({ product, token }) => {
-  const { id, name, prodDes, dollarAmt, stockCount, image_url } = product;
- 
+  const { _id, name, prodDes, dollarAmt, stockCount, image_url } = product;
+
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const addToCart = () => {};
+  const addToCart = async() => {
+    console.log(product)
+    const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
+    const response = await createCheckout(products)
+    console.log(response.session.url)
+    window.open(response.session.url)
+  };
 
   return (
     <Card
       sx={{
         margin:"5px",
         width: "400px",
-        maxHeight: "280px",
+        height: "280px",
         position: "relative",
       }}
-      onMouseEnter={() => setHoveredCard(id)}
+      onMouseEnter={() => setHoveredCard(_id)}
       onMouseLeave={() => setHoveredCard(null)}
     >
       <CardContent>
@@ -27,9 +35,9 @@ const ProductList = ({ product, token }) => {
         <h4>Price: {dollarAmt}</h4>
         <Typography sx={{ margin: "10px" }}>Stock: {stockCount}</Typography>
       </CardContent>
-      {hoveredCard === id && (
+      {hoveredCard === _id && (
         <Box
-        key={product.id} 
+        key={_id} 
           sx={{
             position: "absolute",
             bottom: "0px",
@@ -38,7 +46,7 @@ const ProductList = ({ product, token }) => {
           }}
         >
           <CardActions>
-            <Button sx={{ml:"250px"}}onClick={() => addToCart(id)} variant="contained">
+            <Button sx={{ml:"250px"}}onClick={() => addToCart()} variant="contained">
               ADD TO CART
             </Button>
           </CardActions>

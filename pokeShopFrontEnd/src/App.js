@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import {Login, Products, NotFound, Admin, Register, Home} from "./routes"
+
 const router = createBrowserRouter([
   {
     path: "/",

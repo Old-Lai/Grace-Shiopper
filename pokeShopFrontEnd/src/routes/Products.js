@@ -7,9 +7,10 @@ import { NavBar, ProductList } from "../components";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [token, setToken, isAdmin, setIsAdmin] = useOutletContext();
+  
   useEffect(() => {
     async function fetchProducts() {
-      const response = await fetchAllProducts(token);
+      const response = await fetchAllProducts();
       setProducts(response.products)
     }
     fetchProducts();
@@ -18,7 +19,7 @@ const Products = () => {
   useEffect(() => {
     if(token) {
       getUserInfo(token).then((response) => {
-        setIsAdmin(response.user.isAdmin ? response.user.isAdmin : false);
+        setIsAdmin(response.user.isAdmin);
       });
     }
     
@@ -37,7 +38,10 @@ const Products = () => {
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {products &&
           products.map((product) => {
-            return <ProductList key={product.id} product={product} token={token} />;
+            // console.log(product)
+            return (
+                <ProductList product={product} token={token} key={product.id}/>
+            );
           })}
       </Box>
     </Box>
