@@ -1,36 +1,42 @@
 import { useState, useEffect } from "react";
-import { fetchAllProducts } from "../api";
-import ProductList from "../components/product";
+import { fetchAllProducts, getUserInfo } from "../api";
+
 import { useOutletContext } from "react-router-dom";
-import { Grid, Box } from "@mui/material";
-
-// import { loadStripe } from "@stripe/stripe-js"
-// import { Elements } from "@stripe/react-stripe-js"
-
+import { Grid, Box, Button } from "@mui/material";
+import { NavBar, ProductList } from "../components";
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const { token } = useOutletContext();
-  // const stripePromise = loadStripe('pk_test_51MnRIYDzleE3QpE2kWLpcKCnzr2ZwnsDnvORGENHdiKacDt6PgGI0ok8dO5uLeAOzYM1MTfGiFiJ0Cy5MJENtx3C00pKOzXP9m')
+  const [token, setToken, isAdmin, setIsAdmin] = useOutletContext();
+  
   useEffect(() => {
-    fetchAllProducts().then((response) => {
-      setProducts(response.products);
-      console.log(response.products);
-    });
-  }, []);
-
+    async function fetchProducts() {
+      const response = await fetchAllProducts(token);
+      setProducts(response.products)
+    }
+    fetchProducts();
+  }, [token]);
+  
+  useEffect(() => {
+    if(token) {
+      getUserInfo(token).then((response) => {
+        setIsAdmin(response.user.isAdmin ? response.user.isAdmin : false);
+      });
+    }
+    
+  }, [token]);
+  
   return (
-    <Box sx={{
-      display:"flex",
-      flexDirection:"column",
-      alignItems:"center"
-    }}>
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <h1>Products</h1>
-      <Box sx={{
-        display:"flex",
-        flexWrap:"wrap",
-        justifyContent:"center"
-      }}>
-          {products &&
+  
+      {isAdmin && (
+        <Button variant="contained" color="primary" href="/add-product">
+          Add Product
+        </Button>
+      )}
+  
+      <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+        {products &&
             products.map((product) => {
                 console.log(product)
               return (
@@ -43,5 +49,5 @@ const Products = () => {
     </Box>
   );
 };
-  
+
 export default Products;

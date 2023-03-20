@@ -6,6 +6,7 @@ import { createCheckout } from "../api";
 
 const ProductList = ({ product, token }) => {
   const { _id, name, prodDes, dollarAmt, stockCount, image_url } = product;
+
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -25,7 +26,7 @@ const ProductList = ({ product, token }) => {
         maxHeight: "280px",
         position: "relative",
       }}
-      onMouseEnter={() => setHoveredCard(_id)}
+      onMouseEnter={() => setHoveredCard(id)}
       onMouseLeave={() => setHoveredCard(null)}
     >
       <CardContent>
@@ -34,8 +35,9 @@ const ProductList = ({ product, token }) => {
         <h4>Price: {dollarAmt}</h4>
         <Typography sx={{ margin: "10px" }}>Stock: {stockCount}</Typography>
       </CardContent>
-      {hoveredCard === _id && (
+      {hoveredCard === id && (
         <Box
+        key={product.id} 
           sx={{
             position: "absolute",
             bottom: "0px",

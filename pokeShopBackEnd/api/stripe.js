@@ -1,12 +1,14 @@
+require('dotenv').config()
 const express = require("express");
 const stripeRouter = express.Router();
-const DOMAIN = 'http://localhost:3000'; //change this when deploy
+const stripe = require('stripe')(process.env.STRIPE_SECRET)
+const DOMAIN = 'https://pokefeud-backend.onrender.com/api/stripe'; //change this when deploy
 
 stripeRouter.post('/checkout', async (req, res, next) => {
     try{
         const { products } = req.body
         if(!products){
-            return ("");
+            res.send({});
         }
 
         const line_items = products.map(product => {
@@ -30,7 +32,7 @@ stripeRouter.post('/checkout', async (req, res, next) => {
         cancel_url: `${DOMAIN}/checkout?canceled=true`,
         }); 
 
-        return session.url
+        res.send({session})
     } catch({name, message}){
         next({name, message})
     }
