@@ -37,14 +37,12 @@ const Products = () => {
   
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {products &&
-            products.map((product) => {
-                console.log(product)
-              return (
-                // <Elements stripe={stripePromise}>
-                  <ProductList product={product} token={token} />
-                // </Elements>
-              );
-            })}
+          products.map((product) => {
+            // console.log(product)
+            return (
+                <ProductList product={product} token={token} />
+            );
+          })}
       </Box>
     </Box>
   );

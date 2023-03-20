@@ -1,17 +1,17 @@
 const API_URL = "https://pokefeud-backend.onrender.com/api/"
 export async function registerUser({username, password, email}) {
-    try {
-      let response = await fetch(`${API_URL}users/register`, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        username: username,
-        password: password,
-        email: email
-    })
-  }) 
+  try {
+    let response = await fetch(`${API_URL}users/register`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          username: username,
+          password: password,
+          email: email
+      })
+    }) 
   let result = await response.json()
     return result
     } catch(err){

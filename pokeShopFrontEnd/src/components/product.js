@@ -23,7 +23,7 @@ const ProductList = ({ product, token }) => {
       sx={{
         margin:"5px",
         width: "400px",
-        maxHeight: "280px",
+        height: "280px",
         position: "relative",
       }}
       onMouseEnter={() => setHoveredCard(id)}

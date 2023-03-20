@@ -12,12 +12,6 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [token, setToken] = useOutletContext();
     const navigate = useNavigate();
-    
-    // useEffect(() => {
-    //     if (token) {
-    //         navigate('/products')
-    //     }
-    //  }, [token, navigate])
 
     async function submitLogin() {
         const user = {
@@ -30,10 +24,9 @@ const Login = () => {
         if (response.error) {
           setErrorMessage(response.message);
         } else {
-          localStorage.setItem('token', response.token);
-          setToken(response.token);
-      
-          navigate('/')
+            localStorage.setItem('token', response.token);
+            setToken(response.token);
+            navigate('/')
         }
       }
     
