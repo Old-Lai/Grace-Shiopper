@@ -9,7 +9,7 @@ const cors = require('cors')
 server.use(morgan('dev'));  
 server.use(express.json())
 
-server.use(cors({origin: "http://localhost:3000"}))
+server.use(cors())
 
 server.use('/api/', apiRouter)
 

@@ -14,7 +14,7 @@ const ProductList = ({ product, token }) => {
     console.log(product)
     const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
     const response = await createCheckout(products)
-    console.log(response.session.url)
+    console.log(response)
     window.open(response.session.url)
   };
 

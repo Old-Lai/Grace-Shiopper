@@ -33,8 +33,8 @@ stripeRouter.post('/checkout', async (req, res, next) => {
                 fixed_amount: {amount: 0, currency: 'usd'},
                 display_name: 'Free shipping',
                 delivery_estimate: {
-                    minimum: {unit: 'business_day', value: 45},
-                    maximum: {unit: 'business_day', value: 356},
+                    minimum: {unit: 'month', value: 12},
+                    maximum: {unit: 'month', value: 24},
                 },
                 },
             },
@@ -44,8 +44,8 @@ stripeRouter.post('/checkout', async (req, res, next) => {
                 fixed_amount: {amount: 3000000, currency: 'usd'},
                 display_name: "I'm rich",
                 delivery_estimate: {
-                    minimum: {unit: 'hours', value: 1},
-                    maximum: {unit: 'hours', value: 2},
+                    minimum: {unit: 'hour', value: 1},
+                    maximum: {unit: 'hour', value: 2},
                 },
                 },
             },
