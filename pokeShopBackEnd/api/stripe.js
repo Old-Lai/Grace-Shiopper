@@ -26,6 +26,30 @@ stripeRouter.post('/checkout', async (req, res, next) => {
             }
         })
         const session = await stripe.checkout.sessions.create({
+        shipping_options: [
+            {
+                shipping_rate_data: {
+                type: 'fixed_amount',
+                fixed_amount: {amount: 0, currency: 'usd'},
+                display_name: 'Free shipping',
+                delivery_estimate: {
+                    minimum: {unit: 'business_day', value: 45},
+                    maximum: {unit: 'business_day', value: 356},
+                },
+                },
+            },
+            {
+                shipping_rate_data: {
+                type: 'fixed_amount',
+                fixed_amount: {amount: 3000000, currency: 'usd'},
+                display_name: "I'm rich",
+                delivery_estimate: {
+                    minimum: {unit: 'hours', value: 1},
+                    maximum: {unit: 'hours', value: 2},
+                },
+                },
+            },
+            ],
         line_items,
         mode: 'payment',
         success_url: `${DOMAIN}/checkout?success=true`,
