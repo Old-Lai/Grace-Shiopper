@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const ProductList = ({ product, token }) => {
   const { _id, name, prodDes, dollarAmt, stockCount, image_url } = product;
-  console.log(product)
+  // console.log(product)
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -15,7 +15,7 @@ const ProductList = ({ product, token }) => {
       sx={{
         margin:"5px",
         width: "400px",
-        maxHeight: "280px",
+        height: "280px",
         position: "relative",
       }}
       onMouseEnter={() => setHoveredCard(_id)}

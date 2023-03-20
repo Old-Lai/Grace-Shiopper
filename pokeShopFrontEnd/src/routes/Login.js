@@ -13,12 +13,6 @@ const Login = () => {
     const [token, setToken] = useOutletContext();
     
     const navigate = useNavigate();
-    
-    // useEffect(() => {
-    //     if (token) {
-    //         navigate('/products')
-    //     }
-    //  }, [token, navigate])
 
     async function submitLogin(e) {
         const user = {
@@ -33,7 +27,7 @@ const Login = () => {
         } else {
             localStorage.setItem('token', response.token);
             setToken(response.token);
-            navigate('/products')
+            navigate('/')
         }
     }
     

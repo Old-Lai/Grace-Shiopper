@@ -28,7 +28,7 @@ const Products = () => {
       }}>
         {products &&
           products.map((product) => {
-              console.log(product)
+            // console.log(product)
             return (
                 <ProductList product={product} token={token} />
             );

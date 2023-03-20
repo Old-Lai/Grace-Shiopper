@@ -33,7 +33,7 @@ const Register = () => {
            }
            
            const response = await registerUser(user);
-           console.log(response)
+        //    console.log(response)
            if (response.error) {
                setErrorMessage(response.message);
            } else {
