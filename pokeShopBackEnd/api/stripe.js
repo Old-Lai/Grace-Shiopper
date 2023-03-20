@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require("express");
 const stripeRouter = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET)
-const DOMAIN = 'https://pokefeud-backend.onrender.com/api/stripe'; //change this when deploy
+const DOMAIN = 'https://localhost:3000/'; //change this when deploy
 
 stripeRouter.post('/checkout', async (req, res, next) => {
     try{
@@ -52,13 +52,31 @@ stripeRouter.post('/checkout', async (req, res, next) => {
             ],
         line_items,
         mode: 'payment',
-        success_url: `${DOMAIN}/checkout?success=true`,
-        cancel_url: `${DOMAIN}/checkout?canceled=true`,
+        success_url: `${DOMAIN}stripe/checkout`,
+        cancel_url: `${DOMAIN}stripe/checkout`,
         }); 
 
         res.send({session})
     } catch({name, message}){
         next({name, message})
+    }
+})
+
+stripeRouter.post('/getStatus', async (req, res, next) => {
+    try{
+        const { sessionId } = req.body
+        if(!sessionId){
+            req.send({
+                error:"Id error",
+                message:"Session id is not defined or incorrect."
+            })
+        }
+
+        const session = await stripe.checkout.sessions.retrieve(sessionId)
+
+        return session
+    } catch({name, message}) {
+
     }
 })
 
