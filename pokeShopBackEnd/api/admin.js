@@ -16,7 +16,7 @@ adminRouter.get("/users", async (req, res, next) => {
         });
       }
       const users = await getAllUsers();
-      res.status(200).json(users);
+      res.send({users})
     } catch (err) {
       next(err);
     }

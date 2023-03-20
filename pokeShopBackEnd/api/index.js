@@ -41,7 +41,7 @@ apiRouter.use((req, res, next) => {
 });
 
 const usersRouter = require('./users');
-apiRouter.use('/users', usersRouter);
+apiRouter.use('/users', usersRouter); 
 
 const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
@@ -49,7 +49,7 @@ apiRouter.use('/products', productsRouter);
 const cartRouter = require('./shoppingCart');
 apiRouter.use('/cart', cartRouter);
 
-const adminRouter = require('./admin')
+const adminRouter = require('/admin')
 apiRouter.use('/admin', adminRouter)
 
 apiRouter.use((error, req, res, next) => {

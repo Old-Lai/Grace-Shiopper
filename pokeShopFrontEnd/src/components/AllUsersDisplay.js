@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
-import {fetchAllUsers} from "../api";
-
+import { fetchAllUsers } from "../api";
 import { useOutletContext } from "react-router-dom";
-import { Grid, Box, Button } from "@mui/material";
-import { NavBar, ProductList } from "../components";
-const Products = () => {
-  const [products, setProducts] = useState([]);
+const AllUsersDisplay = () => {
+
   const [token, setToken, isAdmin, setIsAdmin] = useOutletContext();
   useEffect(() => {
-    async function fetchProducts() {
-      const response = await fetchAllProducts(token);
-      setProducts(response.products)
+    async function fetchUsers() {
+      const response = await fetchAllUsers(token);
+      setUsers(response.users)
     }
-    fetchProducts();
+    fetchUsers();
   }, [token]);
   
   useEffect(() => {
@@ -44,4 +41,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default AllUsersDisplay;
