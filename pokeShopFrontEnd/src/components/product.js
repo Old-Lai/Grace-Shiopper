@@ -10,9 +10,10 @@ const ProductList = ({ product, token }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMiniButtonHovered, setIsMiniButtonHovered] = useState(false);
   const addToCart = async() => {
-    const products = [{price:"1000", name:"I work again!", quantity:"3000"}];
-    const response = await createCheckout(products);
-    window.open(response.session.url);
+    const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
+    const response = await createCheckout(products)
+    window.open(response.session.url)
+
   };
   const navigate = useNavigate()
   function handleProductPage() {
