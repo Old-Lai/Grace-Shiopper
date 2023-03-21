@@ -27,7 +27,6 @@ productsRouter.get('/:productId', async (req, res, next) => {
   }
 });
 
-module.exports = router;
 productsRouter.get('/', async (req, res, next) => {
   try{
     const products = await getAllProducts()
