@@ -10,7 +10,24 @@ productsRouter.use((req, res, next) => {
   console.log("A request is being made to /products");
   next();
 });
+productsRouter.get('/:productId', async (req, res, next) => {
+  try {
+    const productId = req.params.productId;
+    const product = await getProductById(productId);
+    if (!product) {
+      res.status(404).send({
+        error: 'Product not found',
+        message: `No product found with id ${productId}`,
+      });
+    } else {
+      res.send(product);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
+module.exports = router;
 productsRouter.get('/', async (req, res, next) => {
   try{
     const products = await getAllProducts()

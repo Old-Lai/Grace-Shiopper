@@ -89,14 +89,26 @@ export async function getUserInfo(token){
     console.error(e)
   }
 }
-export async function fetchAllUsers() {
+export async function fetchAllUsers(token) {
   try {
     let response = await fetch(`${API_URL}admin/users`, {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     });
     let result = await response.json();
+    console.log(result)
     return result;
-  } catch (error) {}
+  } catch (error) {
+    console.error(error)
+  }
 }
+export async function fetchProductById(productId){
+  const response = await fetch(`${API_URL}/products/${productId}`);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  const data = await response.json();
+  return data;
+};

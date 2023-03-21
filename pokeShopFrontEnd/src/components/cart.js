@@ -5,7 +5,6 @@ const Cart = ()=> {
     const [itemCount, setItemCount] = useState(0)
     const [products, setProducts] = useState({})
     const [isOpen, setIsOpen] = useState(false)
-
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 

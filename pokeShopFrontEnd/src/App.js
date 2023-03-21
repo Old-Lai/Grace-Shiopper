@@ -3,8 +3,7 @@ import {
   RouterProvider
 } from "react-router-dom";
 import './index.css'
-import {Login, Products, NotFound, Admin, Register, Home} from "./routes"
-
+import {Login, Products, NotFound, Admin, Register, Home, SingleProductView} from "./routes"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,16 +21,22 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Products />,
+
       },
       {
-        path: "Profile",
+        path: "admin",
         element: <Admin/>,
-      }
+      },
+      {
+        path: "/:productId",
+        element: <SingleProductView />,
+      },
     ],
   },
 ]);
 
 function App() {
+
   return (
     <div className="App">
       <RouterProvider router={router} />
