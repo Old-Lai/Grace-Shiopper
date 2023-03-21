@@ -40,19 +40,19 @@ apiRouter.use((req, res, next) => {
   next();
 });
 
-const usersRouter = require('/users');
+const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter); 
 
-const productsRouter = require('/products');
+const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
 
-const cartRouter = require('/shoppingCart');
+const cartRouter = require('./shoppingCart');
 apiRouter.use('/cart', cartRouter);
 
-const adminRouter = require('/admin')
+const adminRouter = require('./admin')
 apiRouter.use('/admin', adminRouter)
 
-const stripeRouter = require('/stripe')
+const stripeRouter = require('./stripe')
 apiRouter.use('/stripe', stripeRouter)
 
 apiRouter.use((error, req, res, next) => {
