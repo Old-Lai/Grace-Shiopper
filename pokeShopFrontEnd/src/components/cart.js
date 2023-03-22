@@ -1,11 +1,12 @@
 import { useState } from "react"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton, Badge, Menu, MenuItem } from '@mui/material';
-const Cart = ({token})=> {
+
+const Cart = ({token, cartItems})=> {
     const [itemCount, setItemCount] = useState(0)
     const [products, setProducts] = useState([])
     const [isOpen, setIsOpen] = useState(false)
-    console.log(products)
+
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 

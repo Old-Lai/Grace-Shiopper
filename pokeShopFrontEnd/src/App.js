@@ -26,7 +26,11 @@ const router = createBrowserRouter([
       {
         path: "Profile",
         element: <Admin/>,
-      }
+      },
+      // {
+      //   path: "stripe/checkout",
+      //   element: <
+      // }
     ],
   },
 ]);

@@ -4,18 +4,32 @@ import { useState } from "react";
 import { createCheckout } from "../api";
 // import { useStripe } from "@stripe/react-stripe-js"
 
-const ProductList = ({ product, token }) => {
-  const { _id, name, prodDes, dollarAmt, stockCount, image_url } = product;
+const ProductList = ({ product, token, setCartItems, cartItems }) => {
+  const { id, name, prodDes, dollarAmt, stockCount, image_url } = product;
 
-  const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
 
   const addToCart = async() => {
-    console.log(product)
-    const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
-    const response = await createCheckout(products)
-    console.log(response)
-    window.open(response.session.url)
+    let newCartItems = [...cartItems]
+    let item = newCartItems.find(item => item.productId === id)
+    if(item){
+      item.count = item.count + 1
+    } else {
+      newCartItems.push({
+        productId:id, 
+        productName:name,
+        productDes:prodDes,
+        dollarAmt,
+        image_url,
+        count:1
+      })
+    }
+    setCartItems(newCartItems)
+    // const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
+    // const response = await createCheckout(products)
+    // console.log(response.session.id)
+    // localStorage.setItem("sessionId", response.session.id)
+    // window.location.replace(response.session.url)
   };
 
   return (
@@ -26,7 +40,7 @@ const ProductList = ({ product, token }) => {
         height: "280px",
         position: "relative",
       }}
-      onMouseEnter={() => setHoveredCard(_id)}
+      onMouseEnter={() => setHoveredCard(id)}
       onMouseLeave={() => setHoveredCard(null)}
     >
       <CardContent>
@@ -35,9 +49,9 @@ const ProductList = ({ product, token }) => {
         <h4>Price: {dollarAmt}</h4>
         <Typography sx={{ margin: "10px" }}>Stock: {stockCount}</Typography>
       </CardContent>
-      {hoveredCard === _id && (
+      {hoveredCard === id && (
         <Box
-        key={_id} 
+        key={id} 
           sx={{
             position: "absolute",
             bottom: "0px",

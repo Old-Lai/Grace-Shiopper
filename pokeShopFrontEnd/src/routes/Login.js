@@ -10,25 +10,25 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [token, setToken] = useOutletContext();
+    const {setToken} = useOutletContext();
     const navigate = useNavigate();
 
     async function submitLogin() {
-        const user = {
-          username,
-          password
-        }
-      
-        const response = await loginUser(user);
-      
-        if (response.error) {
-          setErrorMessage(response.message);
-        } else {
-            localStorage.setItem('token', response.token);
-            setToken(response.token);
-            navigate('/')
-        }
+      const user = {
+        username,
+        password
       }
+    
+      const response = await loginUser(user);
+    
+      if (response.error) {
+        setErrorMessage(response.message);
+      } else {
+          localStorage.setItem('token', response.token);
+          setToken(response.token);
+          navigate('/')
+      }
+    }
     
     return (
     <section className="registerCss">
