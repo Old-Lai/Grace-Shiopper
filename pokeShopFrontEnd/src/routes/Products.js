@@ -38,7 +38,6 @@ const Products = () => {
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {products &&
           products.map((product) => {
-            // console.log(product)
             return (
                 <ProductList product={product} token={token} setCartItems={setCartItems} cartItems={cartItems} key={product.id}/>
             );

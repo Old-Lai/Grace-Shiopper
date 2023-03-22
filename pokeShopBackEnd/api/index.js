@@ -55,6 +55,7 @@ apiRouter.use('/admin', adminRouter)
 const stripeRouter = require('./stripe')
 apiRouter.use('/stripe', stripeRouter)
 
+
 apiRouter.use((error, req, res, next) => {
   res.send({
     name: error.name,
@@ -74,4 +75,5 @@ apiRouter.use((error, req, res, next) => {
     console.error(e);
   }
 })();
+
 module.exports = apiRouter;

@@ -1,14 +1,14 @@
-import { Card, CardContent, CardActions, Button, Typography, Box } from "@mui/material";
-import { redirect, useNavigate } from "react-router-dom";
+import { IconButton, Card, CardContent, CardActions, Button, Typography, Box } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 import { useState } from "react";
 import { createCheckout } from "../api";
-// import { useStripe } from "@stripe/react-stripe-js"
+import { Navigate, useNavigate } from "react-router-dom";
 
-const ProductList = ({ product, token, setCartItems, cartItems }) => {
+const ProductList = ({ product, token }) => {
   const { id, name, prodDes, dollarAmt, stockCount, image_url } = product;
 
-  const [hoveredCard, setHoveredCard] = useState(null);
-
+  const [isHovered, setIsHovered] = useState(false);
+  const [isMiniButtonHovered, setIsMiniButtonHovered] = useState(false);
   const addToCart = async() => {
     let newCartItems = [...cartItems]
     let item = newCartItems.find(item => item.productId === id)
@@ -31,7 +31,10 @@ const ProductList = ({ product, token, setCartItems, cartItems }) => {
     // localStorage.setItem("sessionId", response.session.id)
     // window.location.replace(response.session.url)
   };
-
+  const navigate = useNavigate()
+  function handleProductPage() {
+    navigate(`/${id}`);
+  }
   return (
     <Card
       sx={{
@@ -40,18 +43,57 @@ const ProductList = ({ product, token, setCartItems, cartItems }) => {
         height: "280px",
         position: "relative",
       }}
-      onMouseEnter={() => setHoveredCard(id)}
-      onMouseLeave={() => setHoveredCard(null)}
+      
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+
     >
       <CardContent>
-        <h2>{name}</h2>
+        <Box sx={{
+          display: "flex",
+          justifyContent: "space-between"
+        }}>
+          <h2>{name}</h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "right"
+          }}
+        >
+          <IconButton
+            sx={{ borderRadius: '50%', p: 0, m: 1 }}
+            onMouseEnter={() => setIsMiniButtonHovered(true)}
+            onMouseLeave={() => setIsMiniButtonHovered(false)}
+            onClick={handleProductPage}
+          >
+            {isMiniButtonHovered ? (
+              <Button 
+                sx={{
+                  borderRadius: '1  0%',
+                  width: "100px",
+                  height: "40px",
+                  display: "flex",
+                  alignItems: "right",
+                  justifyContent: "center"
+                }}
+                variant="contained"
+                
+              >
+                VIEW PRODUCT
+              </Button>
+            ) : (
+              <AddIcon sx={{ marginRight: "30px",fontSize: '2rem', transform: 'scale(1.2)' }} />
+            )}
+          </IconButton>
+        </div>
+        </Box>
         <h4>Description: {prodDes}</h4>
         <h4>Price: {dollarAmt}</h4>
         <Typography sx={{ margin: "10px" }}>Stock: {stockCount}</Typography>
       </CardContent>
-      {hoveredCard === id && (
+      {isHovered && (
         <Box
-        key={id} 
+          key={id} 
           sx={{
             position: "absolute",
             bottom: "0px",
@@ -60,7 +102,7 @@ const ProductList = ({ product, token, setCartItems, cartItems }) => {
           }}
         >
           <CardActions>
-            <Button sx={{ml:"250px"}}onClick={() => addToCart()} variant="contained">
+            <Button sx={{ml:"250px"}} onClick={() => addToCart()} variant="contained">
               ADD TO CART
             </Button>
           </CardActions>
@@ -70,4 +112,4 @@ const ProductList = ({ product, token, setCartItems, cartItems }) => {
   );
 };
 
-export default ProductList
+export default ProductList;
