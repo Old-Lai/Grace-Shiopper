@@ -9,7 +9,7 @@ const seed = require('../db/seed')
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
-  
+
   if (!auth) { // nothing to see here
     next();
   } else if (auth.startsWith(prefix)) {
@@ -46,6 +46,10 @@ apiRouter.use('/users', usersRouter);
 const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
 
+// Define the products/:productId endpoint here
+const productRouter = require('./products/:productId');
+apiRouter.use('/products/:productId', productRouter);
+
 const cartRouter = require('./shoppingCart');
 apiRouter.use('/cart', cartRouter);
 
@@ -54,6 +58,7 @@ apiRouter.use('/admin', adminRouter)
 
 const stripeRouter = require('./stripe')
 apiRouter.use('/stripe', stripeRouter)
+
 
 apiRouter.use((error, req, res, next) => {
   res.send({
@@ -74,4 +79,5 @@ apiRouter.use((error, req, res, next) => {
     console.error(e);
   }
 })();
+
 module.exports = apiRouter;
