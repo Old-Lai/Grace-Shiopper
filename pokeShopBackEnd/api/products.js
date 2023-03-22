@@ -92,9 +92,9 @@ productsRouter.post('/:productId', async (req,res,next) => {
         message:"No product of that id can be found"
       })
     }
-    const { productName, productDescription, dollarAmt, stockCount } = req.body
+    const { productName, productDescription, dollarAmt, stockCount, isListed } = req.body
     //if they did not provide the essential data
-    const product = await updateProduct(productId, {name:productName, prodDes:productDescription, dollarAmt:dollarAmt, stockCount:stockCount})
+    const product = await updateProduct(productId, {name:productName, prodDes:productDescription, dollarAmt, stockCount, isListed})
     
     res.send({
       product
