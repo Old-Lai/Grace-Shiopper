@@ -10,10 +10,26 @@ const ProductList = ({ product, token }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMiniButtonHovered, setIsMiniButtonHovered] = useState(false);
   const addToCart = async() => {
-    const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
-    const response = await createCheckout(products)
-    window.open(response.session.url)
-
+    let newCartItems = [...cartItems]
+    let item = newCartItems.find(item => item.productId === id)
+    if(item){
+      item.count = item.count + 1
+    } else {
+      newCartItems.push({
+        productId:id, 
+        productName:name,
+        productDes:prodDes,
+        dollarAmt,
+        image_url,
+        count:1
+      })
+    }
+    setCartItems(newCartItems)
+    // const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
+    // const response = await createCheckout(products)
+    // console.log(response.session.id)
+    // localStorage.setItem("sessionId", response.session.id)
+    // window.location.replace(response.session.url)
   };
   const navigate = useNavigate()
   function handleProductPage() {
@@ -27,8 +43,10 @@ const ProductList = ({ product, token }) => {
         height: "280px",
         position: "relative",
       }}
+      
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+
     >
       <CardContent>
         <Box sx={{

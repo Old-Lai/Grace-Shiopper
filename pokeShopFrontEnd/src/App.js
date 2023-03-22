@@ -27,10 +27,14 @@ const router = createBrowserRouter([
         path: "admin",
         element: <Admin/>,
       },
+      // {
+      //   path: "stripe/checkout",
+      //   element: <
+      // },
       {
         path: "/:productId",
         element: <SingleProductView />,
-      },
+      }
     ],
   },
 ]);

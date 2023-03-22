@@ -6,7 +6,7 @@ import { Grid, Box, Button } from "@mui/material";
 import { NavBar, ProductList } from "../components";
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [token, setToken, isAdmin, setIsAdmin] = useOutletContext();
+  const {token, isAdmin, setIsAdmin, cartItems, setCartItems} = useOutletContext();
   
   useEffect(() => {
     async function fetchProducts() {
@@ -39,7 +39,7 @@ const Products = () => {
         {products &&
           products.map((product) => {
             return (
-                <ProductList product={product} token={token} key={product.id}/>
+                <ProductList product={product} token={token} setCartItems={setCartItems} cartItems={cartItems} key={product.id}/>
             );
           })}
       </Box>
