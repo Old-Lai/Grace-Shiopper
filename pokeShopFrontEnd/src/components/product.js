@@ -18,7 +18,6 @@ const ProductList = ({ product, token }) => {
   const navigate = useNavigate()
   function handleProductPage() {
     navigate(`/${id}`);
-
   }
   return (
     <Card

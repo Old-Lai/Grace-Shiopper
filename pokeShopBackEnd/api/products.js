@@ -11,7 +11,7 @@ productsRouter.use((req, res, next) => {
   next();
 });
 productsRouter.get('/:productId', async (req, res, next) => {
-  try {
+  try { 
     const productId = req.params.productId;
     const product = await getProductById(productId);
     if (!product) {
