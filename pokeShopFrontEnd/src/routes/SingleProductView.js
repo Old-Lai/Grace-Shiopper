@@ -5,19 +5,19 @@ import { fetchProductById } from "../api";
 
 const SingleProductView = () => {
   const [product, setProduct] = useState(null);
-  const { id } = useParams();
+  const { productId } = useParams();
 
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const fetchedProduct = await fetchProductById(id);
+        const fetchedProduct = await fetchProductById(productId);
         setProduct(fetchedProduct);
       } catch (error) {
         console.error(error);
       }
     };
     getProduct();
-  }, [id]);
+  }, [productId]);
 
   const handleAddToCart = () => {
     // add to cart functionality
