@@ -46,10 +46,6 @@ apiRouter.use('/users', usersRouter);
 const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
 
-// Define the products/:productId endpoint here
-const productRouter = require('./products/:productId');
-apiRouter.use('/products/:productId', productRouter);
-
 const cartRouter = require('./shoppingCart');
 apiRouter.use('/cart', cartRouter);
 
