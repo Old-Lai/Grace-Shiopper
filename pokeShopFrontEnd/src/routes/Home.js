@@ -5,7 +5,9 @@ import {Stack, Typography, Box} from '@mui/material/';
 
 const Home = () => {
     const [token, setToken] = useState(localStorage.getItem("token"));
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false)
+    const [cartItems, setCartItems] = useState([])
+    console.log(cartItems)
     return (
         <div style={{ maxWidth: '100%', margin: '0 auto', padding: '16px' }}>
   <header style={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
@@ -21,10 +23,7 @@ const Home = () => {
     <Outlet context={[token, setToken, isAdmin, setIsAdmin]}/>  
   </main>
 </div>
-    
-    
 )
-
 }
 
 export default Home

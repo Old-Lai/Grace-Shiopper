@@ -12,7 +12,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [token, setToken] = useOutletContext(null);
+    const {setToken} = useOutletContext(null);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
    async function submitRegistration() {   
