@@ -52,8 +52,8 @@ stripeRouter.post('/checkout', async (req, res, next) => {
             ],
         line_items,
         mode: 'payment',
-        success_url: `${DOMAIN}stripe/checkout`,
-        cancel_url: `${DOMAIN}stripe/checkout`,
+        success_url: `${DOMAIN}`,
+        cancel_url: `${DOMAIN}`,
         }); 
 
         res.send({session})

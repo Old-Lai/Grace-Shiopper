@@ -22,7 +22,7 @@ const NavBar = ({ token, setToken, isAdmin, setIsAdmin }) => {
         {!token && <Link to="Register">Register</Link>}
         {!token && <Link to="Login">Login</Link>}
         {token && (
-          <Box mr={token ? -2.5 : 0}>
+          <Box>
             <Button onClick={() => logOut()}>Logout</Button>
           </Box>
         )}

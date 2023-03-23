@@ -34,7 +34,7 @@ const Admin = () => {
               <TableCell sx={{ width: "25%" }}>ID</TableCell>
               <TableCell sx={{ width: "25%" }}>Username</TableCell>
               <TableCell sx={{ width: "25%" }}>Email</TableCell>
-              <TableCell sx={{ width: "25%" }}>Admin</TableCell>
+              <TableCell sx={{ width: "25%" }}>Role</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
