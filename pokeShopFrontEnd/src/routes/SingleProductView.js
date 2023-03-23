@@ -31,32 +31,28 @@ const SingleProductView = () => {
   console.log(imageUrls)
   return (
    
-        <Card
+    <Card
     sx={{
-      margin:"0 auto",
+      margin: "0 auto",
       width: "400px",
-      height: "300px",
+      height: "400px",
       position: "relative",
-      
-      
-      
       transition: "transform 0.5s, box-shadow 0.5s",
       boxShadow: isHovered
         ? "0px 10px 20px rgba(0,0,0,0.3), 0px 6px 6px rgba(0,0,0,0.2)"
         : "none",
-      transform: isHovered
-        ? "translate3d(0, -10px, 0)"
-        : "translate3d(0, 0, 0)",
+      transform: isHovered ? "translate3d(0, -10px, 0)" : "translate3d(0, 0, 0)",
     }}
     onMouseEnter={() => setIsHovered(true)}
     onMouseLeave={() => setIsHovered(false)}
   >
-      <CardContent >
-      <Box sx={{
+    <CardContent>
+      <Box
+        sx={{
           display: "flex",
-          flexDirection: "column"
-
-        }}>
+          flexDirection: "column",
+        }}
+      >
         <Typography variant="h5" component="div">
           {product.name}
         </Typography>
@@ -74,34 +70,14 @@ const SingleProductView = () => {
             <img key={index} src={url} alt="product" />
           ))}
         </div>
-        </Box>
-        <Typography variant="h5" component="div">
-          {product.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {product.prodDes}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Price: {product.dollarAmt}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Stock: {product.stockCount}
-        </Typography>
-        <Box>
-          {imageUrls.map((url, index) => (
-            <img  key={index}
-            src={url}
-            alt="product"
-            style={{ margin: 0 }}/>
-          ))}
-        </Box>
-      </CardContent>
-      <CardActions>
-        <Button onClick={handleAddToCart} size="small">
-          Add to Cart
-        </Button>
-      </CardActions>
-    </Card>
+      </Box>
+    </CardContent>
+    <CardActions sx={{display:"flex", justifyContent:"flex-end"}}>
+      <Button onClick={handleAddToCart} size="small">
+        Add to Cart
+      </Button>
+    </CardActions>
+  </Card>
     
     
   );
