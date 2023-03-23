@@ -21,9 +21,6 @@ client.connect((err) => {
         console.log('connected')
     }
 })
-
-
-
 server.listen(PORT, () => {
   console.log('The server is up on port', PORT)
 });
