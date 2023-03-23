@@ -38,7 +38,8 @@ async function getPokemonData() {
         prodDes: speciesData.flavor_text_entries[0].flavor_text,
         image_url,
         dollarAmt: 0,
-        stockCount: 0
+        stockCount: 0,
+        isListed:true
       });
     }
   
