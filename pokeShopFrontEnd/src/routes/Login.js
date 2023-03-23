@@ -33,7 +33,6 @@ const Login = () => {
     return (
     <section className="registerCss">
          <Grid sx={{display:'flex', justifyContent: 'center' }}>
-            
             <Box sx={{display:'flex', width:'25ch',flexDirection:'column', alignItems:'center'}}>
             <h1 className="Login">Login</h1>
             <TextField

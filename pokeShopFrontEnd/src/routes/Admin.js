@@ -5,7 +5,7 @@ import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Box, 
 import { AllUsersDisplay } from "../components";
 
 const Admin = () => {
-  const [token, setToken, isAdmin, setIsAdmin] = useOutletContext();
+  const {token, setToken, isAdmin, setIsAdmin} = useOutletContext();
   const [allUsers, setAllUsers] = useState([]);
   const navigate = useNavigate()
   console.log(isAdmin)

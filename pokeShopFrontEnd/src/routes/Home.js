@@ -20,7 +20,7 @@ const Home = () => {
     </Box>
   </header>
   <main>
-    <Outlet context={[token, setToken, isAdmin, setIsAdmin]}/>  
+    <Outlet context={{token, setToken, isAdmin, setIsAdmin}}/>  
   </main>
 </div>
 )

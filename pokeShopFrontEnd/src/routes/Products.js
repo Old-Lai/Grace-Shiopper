@@ -7,7 +7,7 @@ import { NavBar, ProductList } from "../components";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [token, setToken, isAdmin, setIsAdmin] = useOutletContext();
+  const {token, setToken, isAdmin, setIsAdmin} = useOutletContext();
   const [visibleProducts, setVisibleProducts] = useState(4);
 
   useEffect(() => {

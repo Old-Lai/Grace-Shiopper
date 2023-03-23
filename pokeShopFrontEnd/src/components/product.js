@@ -12,21 +12,21 @@ const ProductList = ({ product, token, isAdmin}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMiniButtonHovered, setIsMiniButtonHovered] = useState(false);
   const addToCart = async() => {
-    let newCartItems = [...cartItems]
-    let item = newCartItems.find(item => item.productId === id)
-    if(item){
-      item.count = item.count + 1
-    } else {
-      newCartItems.push({
-        productId:id, 
-        productName:name,
-        productDes:prodDes,
-        dollarAmt,
-        image_url,
-        count:1
-      })
-    }
-    setCartItems(newCartItems)
+    // let newCartItems = [...cartItems]
+    // let item = newCartItems.find(item => item.productId === id)
+    // if(item){
+    //   item.count = item.count + 1
+    // } else {
+    //   newCartItems.push({
+    //     productId:id, 
+    //     productName:name,
+    //     productDes:prodDes,
+    //     dollarAmt,
+    //     image_url,
+    //     count:1
+    //   })
+    // }
+    // setCartItems(newCartItems)
     // const products = [{price:"1000", name:"I work again!", quantity:"3000"}]
     // const response = await createCheckout(products)
     // console.log(response.session.id)
@@ -81,7 +81,7 @@ const ProductList = ({ product, token, isAdmin}) => {
             justifyContent: "right"
           }}
         >
-          <IconButton
+          <Box
             sx={{ borderRadius: '50%', p: 0, m: 1 }}
             onMouseEnter={() => setIsMiniButtonHovered(true)}
             onMouseLeave={() => setIsMiniButtonHovered(false)}
@@ -105,7 +105,7 @@ const ProductList = ({ product, token, isAdmin}) => {
             ) : (
               <RemoveRedEyeIcon sx={{ marginRight: "30px",fontSize: '2rem', transform: 'scale(1.2)' }} />
             )}
-          </IconButton>
+          </Box>
         </div>
         </Box>
         <h4>Description: {prodDes}</h4>
