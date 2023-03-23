@@ -16,11 +16,11 @@ const Home = () => {
       <Box sx={{ margin: "0 auto", marginLeft: "18.2rem", maxWidth: "10%" }}>
         <img src={require('../final_banner.png')} height="100" alt="Logo" />
       </Box>
-      <Cart sx={{ flex: 1 }} />
+      <Cart sx={{ flex: 1 }} cartItems={cartItems} setCartItems={setCartItems}/>
     </Box>
   </header>
   <main>
-    <Outlet context={{token, setToken, isAdmin, setIsAdmin}}/>  
+    <Outlet context={{token, setToken, isAdmin, setIsAdmin, cartItems, setCartItems}}/>  
   </main>
 </div>
 )

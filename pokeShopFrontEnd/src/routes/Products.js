@@ -7,7 +7,7 @@ import { NavBar, ProductList } from "../components";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const {token, setToken, isAdmin, setIsAdmin} = useOutletContext();
+  const {token, setToken, isAdmin, setIsAdmin, cartItems, setCartItems} = useOutletContext();
   const [visibleProducts, setVisibleProducts] = useState(4);
 
   useEffect(() => {
@@ -39,17 +39,17 @@ const Products = () => {
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <h1>Products</h1>
 
-        {isAdmin && (
+        {/* {isAdmin && (
           <Button variant="contained" color="primary" href="/add-product">
             Add Product
           </Button>
-        )}
+        )} */}
 
         <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
           {products &&
             products.slice(0, visibleProducts).map((product) => {
               return (
-                <ProductList product={product} token={token} key={product.id} isAdmin={isAdmin}/>
+                <ProductList product={product} token={token} key={product.id} isAdmin={isAdmin} cartItems={cartItems} setCartItems={setCartItems}/>
               );
             })}
         </Box>

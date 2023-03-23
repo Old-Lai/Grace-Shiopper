@@ -42,8 +42,9 @@ async function getPokemonData() {
         name: pokemonDetails.name,
         prodDes: speciesData.flavor_text_entries[0].flavor_text,
         image_url,
-        dollarAmt,
-        stockCount
+        dollarAmt: 0,
+        stockCount: 0,
+        isListed:true
       });
     }
 
