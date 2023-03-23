@@ -46,6 +46,25 @@ cartRouter.get('/history', async (req,res,next) => {
     }
 })
 
-cartRouter.get
+cartRouter.post('/update', async (req,res,next) => {
+    try{
+        if(!req.user){
+            res.send({
+                error:"Unauthorized",
+                message:"you need to login to do this action"
+            })
+        }
+
+        const {id, productsList} = req.body
+
+        const cart = await updateShoppingCart({id, productsList})
+
+        res.send({
+            cart
+        })
+    } catch({name, message}) {
+        next({name, message})
+    }
+})
 
 module.exports = cartRouter;
