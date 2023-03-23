@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require("express");
 const stripeRouter = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET)
-const DOMAIN = 'https://pokefeudfront.onrender.com/'; //change this when deploy
+const DOMAIN = 'https://mellifluous-cascaron-64818b.netlify.app/'; //change this when deploy
 
 stripeRouter.post('/checkout', async (req, res, next) => {
     try{
