@@ -11,8 +11,8 @@ const fetch = require('node-fetch');
 |                                                         |
 =========================================================*/
 async function getPokemonData() {
-    try{
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20', {
+  try {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20', {
       headers: {
         'Content-Type': 'application/json',
         'Accept-Language': 'en'
@@ -25,30 +25,74 @@ async function getPokemonData() {
     for (let pokemon of data.results) {
       const pokemonResponse = await fetch(pokemon.url);
       const pokemonDetails = await pokemonResponse.json();
-  
+
       const speciesResponse = await fetch(`${pokemonDetails.species.url}?language=en`);
       const speciesData = await speciesResponse.json();
-  
+
       const spriteUrls = Object.values(pokemonDetails.sprites).filter(url => url !== null && url !== undefined && typeof url === 'string');
       const image_url = spriteUrls.join(';');
 
-        console.log(image_url)
+      // Generate a random dollar amount between 1 and 1000
+      const dollarAmt = Math.floor(Math.random() * 1000) + 1;
+
+      // Generate a random stock count between 1 and 100
+      const stockCount = Math.floor(Math.random() * 100) + 1;
+
       pokemonData.push({
         name: pokemonDetails.name,
         prodDes: speciesData.flavor_text_entries[0].flavor_text,
         image_url,
-        dollarAmt: 0,
-        stockCount: 0
+        dollarAmt,
+        stockCount
       });
     }
-  
-    return pokemonData;
-  } catch (error){
-    console.error(error)
 
+    return pokemonData;
+  } catch (error) {
+    console.error(error);
+  }
+}async function getPokemonData() {
+    try {
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'en'
+        }
+      }); 
+      const data = await response.json();
+  
+      const pokemonData = [];
+  
+      for (let pokemon of data.results) {
+        const pokemonResponse = await fetch(pokemon.url);
+        const pokemonDetails = await pokemonResponse.json();
+  
+        const speciesResponse = await fetch(`${pokemonDetails.species.url}?language=en`);
+        const speciesData = await speciesResponse.json();
+  
+        const spriteUrls = Object.values(pokemonDetails.sprites).filter(url => url !== null && url !== undefined && typeof url === 'string');
+        const image_url = spriteUrls.join(';');
+  
+        // Generate a random dollar amount between 1 and 1000
+        const dollarAmt = Math.floor(Math.random() * 1000) + 1;
+  
+        // Generate a random stock count between 1 and 100
+        const stockCount = Math.floor(Math.random() * 100) + 1;
+  
+        pokemonData.push({
+          name: pokemonDetails.name,
+          prodDes: speciesData.flavor_text_entries[0].flavor_text,
+          image_url,
+          dollarAmt,
+          stockCount
+        });
+      }
+  
+      return pokemonData;
+    } catch (error) {
+      console.error(error);
     }
-    
-}
+  }
 
 async function createProduct({prodName, prodDes, dollarAmt, stockCount, isListed, image_url}){
     try{
