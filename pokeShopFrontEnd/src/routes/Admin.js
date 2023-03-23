@@ -27,8 +27,8 @@ const Admin = () => {
       <Typography variant="h4" sx={{ marginBottom: "20px", margin: "auto" }}>
         Users Panel
       </Typography>
-      <TableContainer component={Paper}>
-        <Table>
+      <TableContainer component={Paper} sx={{ width: "50%" }}>
+        <Table >
           <TableHead>
             <TableRow>
               <TableCell sx={{ width: "25%" }}>ID</TableCell>

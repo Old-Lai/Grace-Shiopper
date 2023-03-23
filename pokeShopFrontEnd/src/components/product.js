@@ -1,12 +1,14 @@
-import { IconButton, Card, CardContent, CardActions, Button, Typography, Box } from "@mui/material";
+import { IconButton, Card, CardContent, CardActions, Button, Typography, Box, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from "react";
 import { createCheckout } from "../api";
 import { Navigate, useNavigate } from "react-router-dom";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const ProductList = ({ product, token }) => {
+const ProductList = ({ product, token, isAdmin}) => {
   const { id, name, prodDes, dollarAmt, stockCount, image_url } = product;
-
+  const [open, setOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isMiniButtonHovered, setIsMiniButtonHovered] = useState(false);
   const addToCart = async() => {
@@ -30,11 +32,23 @@ const ProductList = ({ product, token }) => {
     // console.log(response.session.id)
     // localStorage.setItem("sessionId", response.session.id)
     // window.location.replace(response.session.url)
+
   };
   const navigate = useNavigate()
   function handleProductPage() {
     navigate(`/${id}`);
   }
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleDelete = async () => {
+    // Add code here to delete the product
+    handleClose();
+  };
+
   return (
     <Card
       sx={{
@@ -42,6 +56,13 @@ const ProductList = ({ product, token }) => {
         width: "400px",
         height: "280px",
         position: "relative",
+        transition: "transform 0.5s, box-shadow 0.5s",
+        boxShadow: isHovered
+          ? "0px 10px 20px rgba(0,0,0,0.3), 0px 6px 6px rgba(0,0,0,0.2)"
+          : "none",
+        transform: isHovered
+          ? "translate3d(0, -10px, 0)"
+          : "translate3d(0, 0, 0)",
       }}
       
       onMouseEnter={() => setIsHovered(true)}
@@ -76,13 +97,13 @@ const ProductList = ({ product, token }) => {
                   alignItems: "right",
                   justifyContent: "center"
                 }}
-                variant="contained"
+                variant=""
                 
               >
                 VIEW PRODUCT
               </Button>
             ) : (
-              <AddIcon sx={{ marginRight: "30px",fontSize: '2rem', transform: 'scale(1.2)' }} />
+              <RemoveRedEyeIcon sx={{ marginRight: "30px",fontSize: '2rem', transform: 'scale(1.2)' }} />
             )}
           </IconButton>
         </div>
@@ -92,21 +113,41 @@ const ProductList = ({ product, token }) => {
         <Typography sx={{ margin: "10px" }}>Stock: {stockCount}</Typography>
       </CardContent>
       {isHovered && (
-        <Box
-          key={id} 
-          sx={{
-            position: "absolute",
-            bottom: "0px",
-            left: "0px",
-            right: "0px",
-          }}
-        >
-          <CardActions>
-            <Button sx={{ml:"250px"}} onClick={() => addToCart()} variant="contained">
-              ADD TO CART
-            </Button>
-          </CardActions>
-        </Box>
+       <Box
+       key={id}
+       sx={{
+         display: "flex",
+         justifyContent: "flex-end",
+         alignItems: "flex-end",
+         position: "absolute",
+         bottom: "0px",
+         left: "0px",
+         right: "0px",
+       }}
+     >
+       <CardActions>
+  {isAdmin && (
+    <IconButton onClick={handleOpen}>
+      <DeleteIcon />
+    </IconButton>
+  )}
+  <Dialog open={open} onClose={handleClose}>
+    <DialogTitle>Delete Product</DialogTitle>
+    <DialogContent>
+      <Typography>Are you sure you want to delete this product?</Typography>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleClose}>Cancel</Button>
+      <Button onClick={handleDelete}>Delete</Button>
+    </DialogActions>
+  </Dialog>
+</CardActions>
+       <CardActions>
+         <Button onClick={() => addToCart()} variant="">
+           ADD TO CART
+         </Button>
+       </CardActions>
+     </Box>
       )}
     </Card>
   );
